@@ -36,7 +36,7 @@ export default function Hero() {
           <p className="body-1 max-w-3xl mx-auto mb-6 text-n-2 lg:mb-8">
           Le meilleur outil pour développer votre réseau, fabriqué en France 🇫🇷
           </p>
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-center md:justify-start">
               <Button href="/pricing" white>
                 Commander {` `}
               </Button>

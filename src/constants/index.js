@@ -3,20 +3,26 @@ import {
   benefitCard2,
   benefitCard3,
   benefitCard4,
+  benefitCard5,
+  benefitCard6,
   benefitImage1,
+  cart,
   checkIcon,
   chromecast,
   disc02,
   discord,
   discordBlack,
   facebook,
+  fast,
   figma,
   file02,
+  fire,
   framer,
   homeIcon,
   homeSmile,
   instagram,
   ledIcon,
+  load,
   lockIcon,
   notification2,
   notification3,
@@ -24,6 +30,7 @@ import {
   notion,
   photoshop,
   plusSquare,
+  printer,
   protopie,
   raindrop,
   recording01,
@@ -33,6 +40,7 @@ import {
   roadmap3,
   roadmap4,
   searchMd,
+  share,
   slack,
   sliders04,
   telegram,
@@ -286,6 +294,45 @@ export const benefits = [
     light: true,
   },
 ];
+
+export const whyUsVars = [
+  {
+    id: "0",
+    text: "Partagez vos coordonnées en quelques secondes via le sans contact (NFC) ou le QRcode",
+    iconUrl: share,
+    backgroundUrl: benefitCard4,
+  },
+  {
+    id: "1",
+    text: "Mise à jour facile et illimitée via le Dashboard",
+    iconUrl: load,
+    backgroundUrl: benefitCard5,
+  },
+  {
+    id: "2",
+    text: "Récupérez les coordonnées de vos prospects via votre VKARD",
+    iconUrl: cart,
+    backgroundUrl: benefitCard1,
+  },
+  {
+    id: "3",
+    text: "Effet whaoo et moderne",
+    iconUrl: fire,
+    backgroundUrl: benefitCard6,
+  },
+  {
+    id: "4",
+    text: "N’imprimez plus jamais de cartes en papier. ",
+    iconUrl: printer,
+    backgroundUrl: benefitCard2,
+  },
+  {
+    id: "5",
+    text: "Fabrication et envoi rapide",
+    iconUrl: fast,
+    backgroundUrl: benefitCard2,
+  },
+]
 
 export const socials = [
   {

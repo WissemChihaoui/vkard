@@ -80,15 +80,25 @@ import instagram from "./socials/instagram.svg";
 import telegram from "./socials/telegram.svg";
 import twitter from "./socials/twitter.svg";
 
-
 import chevronDown from "./chevron-down.svg";
 
-import card from "./card.png"
-import imgheader from "./img_img.png"
-import vCardBlack from "./roadmap/vcard-black.png"
+import card from "./card.png";
+import imgheader from "./img_img.png";
+import vCardBlack from "./roadmap/vcard-black.png";
 
+import nextBtn from "./controls/next-btn.svg";
+import prevBtn from "./controls/prev-btn.svg";
+
+import cart from "./whyUs/cart.svg";
+import fast from "./whyUs/fast.svg";
+import fire from "./whyUs/fire.svg";
+import load from "./whyUs/load.svg";
+import printer from "./whyUs/printer.svg";
+import share from "./whyUs/share.svg";
 
 export {
+  nextBtn,
+  prevBtn,
   brainwave,
   imgheader,
   card,
@@ -159,12 +169,17 @@ export {
   instagram,
   telegram,
   twitter,
-
   benefitImage1,
   lockIcon,
   checkIcon,
   ledIcon,
   homeIcon,
   vCardBlack,
-  chevronDown
+  chevronDown,
+  cart,
+  fast,
+  fire,
+  load,
+  printer,
+  share,
 };

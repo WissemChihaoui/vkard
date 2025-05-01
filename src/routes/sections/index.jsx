@@ -20,8 +20,6 @@ export function Router() {
               </Suspense>
             ),
           },
-        {
             ...mainRoutes
-        }
     ])
 }

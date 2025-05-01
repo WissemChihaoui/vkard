@@ -46,7 +46,7 @@ export default function Hero() {
           </div>
               {/* <CardsScroll /> */}
         </div>
-<img src={imgheader} alt="" className='max-w-auto' width={320}/>
+<img src={imgheader} alt="" className='h-full hidden md:block' width={320}/>
         </div>
         <div className="relative max-w-[23rem] mx-auto md:max-w-5xl">
         

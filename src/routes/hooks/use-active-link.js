@@ -14,7 +14,7 @@ export function useActiveLink(itemPath, deep = true) {
   if (notValid) {
     return false;
   }
-  /* End check */
+  /* End check */ 
 
   /**
    * [1] Apply for Item has children or has params.

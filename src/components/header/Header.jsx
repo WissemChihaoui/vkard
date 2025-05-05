@@ -8,8 +8,11 @@ import { navigation } from "../../constants";
 import MenuSvg from "../../assets/svg/MenuSvg";
 import { HamburgerMenu } from "../UI/Header";
 import Button from "../button/Button";
+import { paths } from "../../routes/paths";
+import { useCheckoutContext } from "../../sections/panier/context";
 
 const Header = () => {
+  const {totalItems} = useCheckoutContext()
   const pathname = useLocation();
   const [openNavigation, setOpenNavigation] = useState(false);
 
@@ -74,8 +77,8 @@ const Header = () => {
         >
           New account
         </a> */}
-        <Button className="hidden lg:flex" href="/">
-          Sign in
+        <Button className="hidden lg:flex" href={paths.panier.root}>
+          Panier ({totalItems})
         </Button>
 
         <Button

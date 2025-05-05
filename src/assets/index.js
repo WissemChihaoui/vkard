@@ -96,7 +96,10 @@ import load from "./whyUs/load.svg";
 import printer from "./whyUs/printer.svg";
 import share from "./whyUs/share.svg";
 
+import deleteIcon from "./delete.svg";
+
 export {
+  deleteIcon,
   nextBtn,
   prevBtn,
   brainwave,

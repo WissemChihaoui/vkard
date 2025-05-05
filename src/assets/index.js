@@ -97,6 +97,12 @@ import printer from "./whyUs/printer.svg";
 import share from "./whyUs/share.svg";
 
 import deleteIcon from "./delete.svg";
+import loginBtn from "./login-btn.svg";
+
+import socialFb from "./social-fb.svg"
+import socialLinkedin from "./social-linkedin.svg"
+import socialGoogle from "./social-google.svg"
+import socialX from "./social-x.svg"
 
 export {
   deleteIcon,
@@ -185,4 +191,10 @@ export {
   load,
   printer,
   share,
+  loginBtn,
+
+  socialFb,
+  socialGoogle,
+  socialLinkedin,  
+  socialX,  
 };

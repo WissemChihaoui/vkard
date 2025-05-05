@@ -4,5 +4,8 @@ export const paths = {
     panier: {
         root: '/panier',
         checkout: '/checkout'
+    },
+    auth: {
+        root: '/auth'
     }
 }

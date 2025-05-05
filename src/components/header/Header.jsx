@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 
 import { useState } from "react";
-import { brainwave } from "../../assets";
+import { brainwave, loginBtn } from "../../assets";
 import { navigation } from "../../constants";
 // import Button from "../button/Button";
 import MenuSvg from "../../assets/svg/MenuSvg";
@@ -71,12 +71,11 @@ const Header = () => {
           <HamburgerMenu />
         </nav>
 
-        {/* <a
-          href="#signup"
+        <Link to={paths.auth.root}
           className="button hidden mr-8 text-n-1/50 transition-colors hover:text-n-1 lg:block"
         >
-          New account
-        </a> */}
+          <img src={loginBtn} width={36}/>
+        </Link>
         <Button className="hidden lg:flex" href={paths.panier.root}>
           Panier ({totalItems})
         </Button>

@@ -6,6 +6,7 @@ import MainLayout from "../../layouts/main-layout";
 const ViewProduct = lazy(() => import("../../pages/main/products/view"));
 const Panier = lazy(() => import("../../pages/main/panier/index"));
 const Checkout = lazy(() => import("../../pages/main/panier/checkout"));
+const Login = lazy(() => import("../../pages/auth/login"));
 
 export const mainRoutes = [
   {
@@ -20,6 +21,12 @@ export const mainRoutes = [
       { path: "product", element: <ViewProduct /> },
       { path: "panier", element: <Panier /> },
       { path: "checkout", element: <Checkout /> },
+      { 
+        path: "auth", 
+        children: [
+          { index: true, element: <Login />}
+        ]
+      }
     ],
   },
 ];

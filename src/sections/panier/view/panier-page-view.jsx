@@ -23,7 +23,7 @@ export default function PanierPageView() {
   return (
     <Section className="xl:py-12 lg:py-8">
       <div className="container relative z-2">
-        <Heading className="mb-8">Mon Panier</Heading>
+        {/* <Heading className="mb-8"/> */}
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left - Cart Items */}

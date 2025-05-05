@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import MainLayout from "../../layouts/main-layout";
-import Loader from "../../components/loader/loader";
+// import Loader from "../../components/loader/loader";
 
 const ViewProduct = lazy(() => import("../../pages/main/products/view"));
 const Panier = lazy(() => import("../../pages/main/panier/index"));
@@ -11,7 +11,7 @@ export const mainRoutes = [
   {
     element: (
       <MainLayout>
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<p>Loading</p>}>
           <Outlet />
         </Suspense>
       </MainLayout>

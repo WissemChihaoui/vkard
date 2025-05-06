@@ -1,6 +1,6 @@
 
 import React from "react";
-import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
+import { MdEmail, MdPhone, MdLocationOn, MdSave } from "react-icons/md";
 import { SocialIcon } from "react-social-icons";
 
 export default function ProfilePageView() {
@@ -46,30 +46,26 @@ export default function ProfilePageView() {
         <p className="text-center text-[#7C8097] uppercase text-xs tracking-wider pt-2 pb-3 font-light">
           Javascript Developer
         </p>
-        <p className="text-center text-[#b7b7bf] text-sm font-light mb-5">
+        <p className="text-center text-[#b7b7bf] text-sm font-light mb-5 px-4">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque aliquam
           aliquid porro!
         </p>
         <div className="w-full flex items-center mb-4">
           <button
             onClick={handleAddContact}
-            className="px-8 mx-auto h-[60px] rounded-[12px] bg-[#5768fd] text-[#ffffff] font-light shadow-md"
+            className="px-8  mx-auto h-[50px] rounded-[12px] bg-[#5768fd] text-[#ffffff] font-light shadow-md"
           >
-            Ajouter au contact
+            <div className="flex gap-3">
+              <MdSave className="text-2xl"/>
+              Ajouter au contact
+            </div>
           </button>
         </div>
-        {/* <div className="flex justify-center gap-4">
-          <div className="w-[130px] h-[42px] rounded-[12px] bg-[#3D405B] text-[#F4F1DE] font-light shadow-md">
-            Email
-          </div>
-          <button className="w-[130px] h-[42px] rounded-[12px] bg-[#3D405B] text-[#F4F1DE] font-light shadow-md">
-            Téléphone
-          </button>
-        </div> */}
+       
       </div>
 
       <div className="p-4">
-        <h3 className="text-center text-[#dcdfff] text-lg mt-4">
+        <h3 className="text-center text-[#dcdfff] text-lg mb-1">
           Let's connect
         </h3>
         <div className="flex justify-center gap-2 flex-wrap px-12">

@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useRef } from "react";
+import { BackgroundCircles, Gradient } from "../components/UI/Hero";
 
-export default function ProfileLayout({children}) {
+export default function ProfileLayout({ children }) {
+  const parallaxRef = useRef(null);
   return (
-    <div className="bg-neutral-500">
-        <div className="max-w-screen-sm m-auto min-h-screen" style={{background: '#F4F1DE'}}>
-            {children}
-        </div>
+    <>
+    <div className="relative" ref={parallaxRef}>
+      <div className="relative border border-n-1/10 z-1 max-w-[28rem] mx-auto h-full">
+        <div className="bg-opacity-30 bg-slate-700 h-full">{children}</div>
+      </div>
+      <BackgroundCircles />
     </div>
-  )
+    </>
+  );
 }

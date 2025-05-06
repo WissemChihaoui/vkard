@@ -1,10 +1,7 @@
+
 import React from "react";
-import {
-  socialFb,
-  socialGoogle,
-  socialLinkedin,
-  socialX,
-} from "../../../assets";
+import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
+import { SocialIcon } from "react-social-icons";
 
 export default function ProfilePageView() {
   const handleAddContact = () => {
@@ -30,7 +27,7 @@ export default function ProfilePageView() {
     URL.revokeObjectURL(url);
   };
   return (
-    <div className="transition-all duration-500">
+    <div className="transition-all duration-500 min-h-screen">
       <div className="relative">
         <div className="relative mb-20 h-[190px] bg-[#E07A5F]">
           <img
@@ -61,42 +58,73 @@ export default function ProfilePageView() {
             Ajouter au contact
           </button>
         </div>
-        <div className="flex justify-center gap-4">
-          <button className="w-[130px] h-[42px] rounded-[12px] bg-[#3D405B] text-[#F4F1DE] font-light shadow-md">
+        {/* <div className="flex justify-center gap-4">
+          <div className="w-[130px] h-[42px] rounded-[12px] bg-[#3D405B] text-[#F4F1DE] font-light shadow-md">
             Email
-          </button>
+          </div>
           <button className="w-[130px] h-[42px] rounded-[12px] bg-[#3D405B] text-[#F4F1DE] font-light shadow-md">
             Téléphone
           </button>
+        </div> */}
+      </div>
+
+      <div className="p-4">
+        <h3 className="text-center text-[#dcdfff] text-lg mt-4">
+          Let's connect
+        </h3>
+        <div className="flex justify-center gap-2 flex-wrap px-12">
+          <SocialIcon url="https://x.com" />
+          <SocialIcon url="https://facebook.com" />
+          <SocialIcon url="https://google.com" />
+          <SocialIcon url="https://linkedin.com" />
+        </div>
+      </div>
+      <div className="flex flex-col gap-4 p-4">
+        {/* Email Card */}
+        <a
+          href="mailto:wissemchihaoui7@gmail.com"
+          className="flex items-center gap-4 p-4 border rounded-xl shadow-md hover:shadow-lg transition"
+        >
+          <div className="bg-blue-100 text-blue-600 w-10 h-10 flex items-center justify-center rounded-full text-lg font-semibold">
+          <MdEmail className="text-2xl text-blue-600" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm text-gray-300">Email</span>
+            <span className="text-base font-medium text-gray-100">
+              wissemchihaoui7@gmail.com
+            </span>
+          </div>
+        </a>
+
+        {/* Phone Card */}
+        <a
+          href="tel:+21696525978"
+          className="flex items-center gap-4 p-4 border rounded-xl shadow-md hover:shadow-lg transition"
+        >
+          <div className="bg-green-100 text-green-600 w-10 h-10 flex items-center justify-center rounded-full text-lg font-semibold">
+          <MdPhone className="text-2xl text-green-600" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm text-gray-300">Téléphone</span>
+            <span className="text-base font-medium text-gray-100">
+              +216 96 525 978
+            </span>
+          </div>
+        </a>
+        <div className="flex items-center gap-4 p-4 border rounded-xl shadow-md hover:shadow-lg transition">
+          <div className="bg-yellow-100 text-yellow-600 w-10 h-10 flex items-center justify-center rounded-full">
+          <MdLocationOn className="text-2xl text-red-600" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm text-gray-300">Adresse</span>
+            <span className="text-base font-medium text-gray-100">
+              123 Rue Habib Bourguiba, Tunis, Tunisie
+            </span>
+          </div>
         </div>
       </div>
 
-      <h3 className="text-center text-[#dcdfff] text-lg mt-4">Let's connect</h3>
-      <div className="p-4">
-        <div className="flex justify-center gap-9 mt-5 px-12">
-          <a href="/" title="Facebook">
-            <img src={socialFb} width={28} />
-          </a>
-          <a href="/" title="LinkedIn">
-            <img src={socialLinkedin} width={28} />
-          </a>
-          <a href="/" title="X">
-            <img src={socialX} width={28} />
-          </a>
-          <a href="/" title="Google">
-            <img src={socialGoogle} width={28} />
-          </a>
-        </div>
-        <div className="w-full flex flex-col items-center mt-12 gap-2">
-          <button className="w-[130px] h-[42px] rounded-[12px] bg-[#3D405B] text-[#F4F1DE] font-light shadow-md">
-            Let's meet
-          </button>
-          <button className="w-[130px] h-[42px] rounded-[12px] bg-[#3D405B] text-[#F4F1DE] font-light shadow-md">
-            Our video
-          </button>
-        </div>
-      </div>
-      <div className="fixed"></div>
+      {/* <div className="fixed"></div> */}
     </div>
   );
 }

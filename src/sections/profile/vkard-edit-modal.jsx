@@ -155,7 +155,7 @@ export default function VkardEditModal({
                 Réseaux sociaux
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-                {["linkedin", "facebook", "instagram"].map((key) => (
+                {["linkedin", "facebook", "instagram", "X"].map((key) => (
                   <div key={key}>
                     <label className="text-sm font-medium text-white capitalize">
                       {key}

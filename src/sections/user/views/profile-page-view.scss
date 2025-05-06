@@ -99,13 +99,7 @@ $shadow: 0 13px 26px rgba(#000, .2), 0 3px 6px rgba(#000, .2);
 }
 
 .wrapper {
-    // width: 320px;
-    // height: 540px;
-    // background: #FDFEFF;
     transition: background .6s ease;
-    //   border-radius: 10px;
-    //   padding: 20px 20px 20px 20px;
-    //   box-shadow: 0 8px 40px rgba(#000000, .2);
 
     .top-icons {
         i {
@@ -157,8 +151,9 @@ $shadow: 0 13px 26px rgba(#000, .2), 0 3px 6px rgba(#000, .2);
 
         .coverShit {
             position: relative;
-            margin-bottom: 50px;
-
+            // margin-bottom: 50px;
+            height: 190px;
+            background-color: #E07A5F;
             .imageCover {
                 width: 100%;
                 max-height: 190px;
@@ -166,13 +161,15 @@ $shadow: 0 13px 26px rgba(#000, .2), 0 3px 6px rgba(#000, .2);
             }
 
             .thumbnail {
-                width: 124px;
-                height: 124px;
+                width: 170px;
+                height: 170px;
                 display: flex;
                 margin-left: auto;
                 margin-right: auto;
                 border-radius: 100%;
-                box-shadow: $shadow;
+                // box-shadow: $shadow;
+
+                border: 5px solid #F4F1DE;
 
                 position: absolute;
                 //   top: 100%;
@@ -183,7 +180,7 @@ $shadow: 0 13px 26px rgba(#000, .2), 0 3px 6px rgba(#000, .2);
         }
 
         .name {
-            color: #fff;
+            color: #3D405B;
             font-size: 24px;
             font-weight: 600;
             text-align: center;
@@ -201,7 +198,7 @@ $shadow: 0 13px 26px rgba(#000, .2), 0 3px 6px rgba(#000, .2);
         }
 
         .description {
-            color: #dcdff2;
+            color: #3D405B;
             font-size: 14px;
             font-weight: 300;
             text-align: center;
@@ -209,7 +206,7 @@ $shadow: 0 13px 26px rgba(#000, .2), 0 3px 6px rgba(#000, .2);
         }
 
         .btn {
-            color: #fff;
+            color: #F4F1DE;
             width: 130px;
             height: 42px;
             outline: none;
@@ -219,25 +216,25 @@ $shadow: 0 13px 26px rgba(#000, .2), 0 3px 6px rgba(#000, .2);
             font-weight: 300;
             margin-left: auto;
             margin-right: auto;
-            border-radius: 70px;
+            border-radius: 12px;
             box-shadow: 0 13px 26px rgba(#000, .16), 0 3px 6px rgba(#000, .16);
-            background: $purple-gradient;
+            background: #3D405B;
         }
     }
     .btn {
-        color: #fff;
-        width: 130px;
-        height: 42px;
-        outline: none;
-        border: none;
-        display: block;
-        cursor: pointer;
-        font-weight: 300;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 70px;
-        box-shadow: 0 13px 26px rgba(#000, .16), 0 3px 6px rgba(#000, .16);
-        background: $purple-gradient;
+        color: #F4F1DE;
+            width: 130px;
+            height: 42px;
+            outline: none;
+            border: none;
+            display: block;
+            cursor: pointer;
+            font-weight: 300;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 12px;
+            box-shadow: 0 13px 26px rgba(#000, .16), 0 3px 6px rgba(#000, .16);
+            background: #3D405B;
     }
 
     .social-icons {

@@ -49,7 +49,7 @@ const cardLinks = [
     iconUrl: profileFav,
   },
   {
-    id: 5,
+    id: 6,
     title: "Déconnexion",
     link: paths.profile.editAccount,
     backgroundUrl: "./src/assets/benefits/card-1.svg",

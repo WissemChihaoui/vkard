@@ -7,9 +7,9 @@ const Input= ({
   ...rest
 }) => {
   return (
-    <div className="flex flex-col gap-1 border-b bg-none">
+    <div className="flex flex-col gap-0 border-b bg-none">
       {label && (
-        <label htmlFor={name} className="text-sm font-medium text-n-7">
+        <label htmlFor={name} className="text-sm font-medium text-gray-300">
           {label}
         </label>
       )}
@@ -17,7 +17,7 @@ const Input= ({
         id={name}
         name={name}
         required={required}
-        className="px-4 py-2 rounded-t-lg border-0 outline-none bg-transparent"
+        className="px-2 py-1 rounded-t-lg border-0 outline-none bg-transparent"
         {...rest}
       />
     </div>

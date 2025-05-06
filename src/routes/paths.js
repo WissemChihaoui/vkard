@@ -7,5 +7,11 @@ export const paths = {
     },
     auth: {
         root: '/auth'
+    },
+    profile: {
+        root: '/my-account',
+        orders: '/my-account/orders',
+        editAccount: '/my-account/edit-account',
+        cards: '/my-account/cards'
     }
 }

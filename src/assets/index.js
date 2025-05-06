@@ -99,12 +99,25 @@ import share from "./whyUs/share.svg";
 import deleteIcon from "./delete.svg";
 import loginBtn from "./login-btn.svg";
 
-import socialFb from "./social-fb.svg"
-import socialLinkedin from "./social-linkedin.svg"
-import socialGoogle from "./social-google.svg"
-import socialX from "./social-x.svg"
+import socialFb from "./social-fb.svg";
+import socialLinkedin from "./social-linkedin.svg";
+import socialGoogle from "./social-google.svg";
+import socialX from "./social-x.svg";
+
+import profileDownloads from "./profileIcons/downloads.svg";
+import profileFav from "./profileIcons/fav.svg";
+import profileLocation from "./profileIcons/location.svg";
+import profileLogout from "./profileIcons/logout.svg";
+import profileOrders from "./profileIcons/orders.svg";
+import profileUser from "./profileIcons/user.svg";
 
 export {
+  profileDownloads,
+  profileFav,
+  profileLocation,
+  profileLogout,
+  profileOrders,
+  profileUser,
   deleteIcon,
   nextBtn,
   prevBtn,
@@ -192,9 +205,8 @@ export {
   printer,
   share,
   loginBtn,
-
   socialFb,
   socialGoogle,
-  socialLinkedin,  
-  socialX,  
+  socialLinkedin,
+  socialX,
 };

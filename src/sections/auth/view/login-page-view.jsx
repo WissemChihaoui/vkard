@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Input from '../../../components/input/input';
 import Button from '../../../components/button/Button';
+import LoginSection from '../login-section';
+import RegisterSection from '../register-section';
 
 export default function LoginPageView() {
   const [isLogin, setIsLogin] = useState(true);
@@ -27,42 +28,11 @@ export default function LoginPageView() {
             </Button>
           </div>
         </div>
-
-        {/* Form Section */}
         <div className="w-2/3 p-8">
           {isLogin ? (
-            <form className="space-y-6">
-              <h3 className="text-xl font-semibold">Connexion</h3>
-              <div>
-                {/* <label className="block mb-1 text-sm font-medium">E-mail</label>
-                <input type="email" className="w-full border p-2 rounded" required /> */}
-                <Input name="email" required type="email" placeholder='Email'/>
-              </div>
-              <div>
-              <Input name="email" required type="password" placeholder='Mot de passe'/>
-
-              </div>
-              <Button type="submit" >Connexion</Button>
-            </form>
+            <LoginSection />
           ) : (
-            <form className="space-y-6">
-              <h3 className="text-xl font-semibold">S’enregistrer</h3>
-              <div>
-              <Input name="email" required type="email" placeholder='Email'/>
-              </div>
-              <p className="text-sm text-gray-600">
-                Un lien permettant de définir un nouveau mot de passe sera envoyé à votre adresse e-mail.
-              </p>
-              <p className="text-sm text-gray-600">
-                Vos données personnelles seront utilisées pour vous accompagner au cours de votre visite du site web,
-                gérer l’accès à votre compte, et pour d’autres raisons décrites dans notre Politique de confidentialité.
-              </p>
-              <div className="flex items-center space-x-2">
-                <input type="checkbox" id="updates" className="w-4 h-4" />
-                <label htmlFor="updates" className="text-sm">Je veux recevoir des mises à jour sur les produits et les promotions.</label>
-              </div>
-              <Button type="submit" >S'enregistrer</Button>
-            </form>
+            <RegisterSection />
           )}
         </div>
       </div>

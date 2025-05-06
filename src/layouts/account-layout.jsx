@@ -31,7 +31,7 @@ export default function AccountLayout({ children }) {
       <aside
         className={` border-r text-white w-full md:w-64 space-y-4 transform z-0 ${
           isOpen ? 'block' : 'hidden'
-        } md:block md:relative md:translate-x-0 absolute z-50 transition-all duration-300 ease-in-out`}
+        } md:block md:relative md:translate-x-0 absolute transition-all duration-300 ease-in-out`}
       >
         {/* Mobile header inside sidebar */}
         <div className="flex items-center justify-between p-4 bg-n-6 shadow-md md:hidden">

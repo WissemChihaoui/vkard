@@ -3,6 +3,7 @@ import { mainRoutes } from "./main";
 import { lazy, Suspense } from "react";
 import MainLayout from "../../layouts/main-layout";
 import ProfileLayout from "../../layouts/profile-layout";
+import { adminRoutes } from "./admin";
 // import Loader from "../../components/loader/loader";
 
 
@@ -39,6 +40,7 @@ export function Router() {
               </Suspense>
             ),
           },
-            ...mainRoutes
+            ...mainRoutes,
+            ...adminRoutes
     ])
 }

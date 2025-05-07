@@ -41,7 +41,7 @@ export const mainRoutes = [
           { path: 'edit-account', element: <ProfileDetails />},
           { path: 'cards', element: <ProfileCards />},
         ]
-      }
+      },
     ],
   },
 ];

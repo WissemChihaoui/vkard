@@ -1,0 +1,47 @@
+import { lazy, Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import AdminLayout from "../../layouts/admin-layout";
+
+const Dashboard = lazy(() => import("../../pages/admin/dashboard/index"));
+const Cards = lazy(() => import("../../pages/admin/dashboard/cards"));
+const Clients = lazy(() => import("../../pages/admin/dashboard/clients"));
+const Orders = lazy(() => import("../../pages/admin/dashboard/orders"));
+const Auth = lazy(() => import("../../pages/admin/auth/index"));
+
+export const adminRoutes = [
+  {
+    element: (
+      <AdminLayout>
+        <Suspense fallback={<p>Loading</p>}>
+          <Outlet />
+        </Suspense>
+      </AdminLayout>
+    ),
+    path: "/admin",
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+      {
+        path: "cards",
+        index: true,
+        element: <Cards />,
+      },
+      {
+        path: "clients",
+        index: true,
+        element: <Clients />,
+      },
+      {
+        path: "orders",
+        index: true,
+        element: <Orders />,
+      },
+      {
+        path: "auth",
+        element: <Auth />,
+      },
+    ],
+  },
+];

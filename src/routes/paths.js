@@ -13,5 +13,13 @@ export const paths = {
         orders: '/my-account/orders',
         editAccount: '/my-account/edit-account',
         cards: '/my-account/cards'
+    },
+
+    admin: {
+        root: "/admin",
+        orders: "/admin/orders",
+        clients: "/admin/clients",
+        cards: "/admin/cards",
+        auth: "/admin/auth",
     }
 }

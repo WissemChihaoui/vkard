@@ -51,9 +51,7 @@ export default function OrdersListView() {
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold text-n-1">Liste des commandes</h2>
-        <button className="bg-n-5 hover:bg-n-4 text-white text-sm font-medium px-4 py-2 rounded shadow">
-          Ajouter une commande
-        </button>
+        
       </div>
 
       <DataTable

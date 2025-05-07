@@ -63,7 +63,7 @@ export default function VkardEditModal({
   };
 
   return (
-    <div className="mt-[0!important] fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center p-4">
+    <div className="mt-[0!important] fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4">
       <div className="bg-n-7 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
         <div className="flex justify-between items-center p-4 border-b border-white/20">
           <h2 className="text-xl font-semibold">Modifier la carte</h2>

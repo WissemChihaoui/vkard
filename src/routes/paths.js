@@ -1,5 +1,6 @@
 export const paths = {
     root: '/',
+    user: '/user',
     productDetails: '/product',
     panier: {
         root: '/panier',
@@ -17,8 +18,14 @@ export const paths = {
 
     admin: {
         root: "/admin",
-        orders: "/admin/orders",
-        clients: "/admin/clients",
+        orders: {
+            root: "/admin/orders",
+            view: (id) => `/admin/orders/${id}`
+        },
+        clients: {
+            root: "/admin/clients",
+            view: (id) => `/admin/clients/${id}`
+        },
         cards: "/admin/cards",
         auth: "/admin/auth",
     }

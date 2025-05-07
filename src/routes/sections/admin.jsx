@@ -6,6 +6,8 @@ const Dashboard = lazy(() => import("../../pages/admin/dashboard/index"));
 const Cards = lazy(() => import("../../pages/admin/dashboard/cards"));
 const Clients = lazy(() => import("../../pages/admin/dashboard/clients"));
 const Orders = lazy(() => import("../../pages/admin/dashboard/orders"));
+const ViewOrders = lazy(() => import("../../pages/admin/dashboard/view-orders"));
+const ViewClient = lazy(() => import("../../pages/admin/dashboard/view-client"));
 const Auth = lazy(() => import("../../pages/admin/auth/index"));
 
 export const adminRoutes = [
@@ -17,7 +19,7 @@ export const adminRoutes = [
         </Suspense>
       </AdminLayout>
     ),
-    path: "/admin",
+    path: "admin",
     children: [
       {
         index: true,
@@ -25,18 +27,33 @@ export const adminRoutes = [
       },
       {
         path: "cards",
-        index: true,
         element: <Cards />,
       },
       {
         path: "clients",
-        index: true,
-        element: <Clients />,
+        children: [
+          {
+            index: true,
+            element: <Clients />,
+          },
+          {
+            path: ":id",
+            element: <ViewClient />
+          }
+        ]
       },
       {
         path: "orders",
-        index: true,
-        element: <Orders />,
+        children: [
+          {
+            index: true,
+            element: <Orders />,
+          },
+          {
+            path: ":id",
+            element: <ViewOrders />
+          }
+        ]
       },
       {
         path: "auth",

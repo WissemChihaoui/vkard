@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { eye, trash } from "../../../assets/admin";
 import ConfirmDeleteModal from "../../../components/delete-confrim-popup/delete-confirm-popup";
+import { Link } from "react-router-dom";
+import { paths } from "../../../routes/paths";
 
 export default function ClientsListRow({ client, deleteRow }) {
     const [confirmOpen, setConfirmOpen] = useState(false)
@@ -19,9 +21,9 @@ export default function ClientsListRow({ client, deleteRow }) {
       <td className="px-4 py-3 text-center text-n-1">{client.commands}</td>
       <td className="px-4 py-3 text-center">
         <div className="flex justify-center gap-3">
-          <button className="text-blue-500 hover:text-blue-700">
+          <Link to={paths.admin.clients.view(client.id)} className="text-blue-500 hover:text-blue-700">
             <img src={eye} />
-          </button>
+          </Link>
           <button onClick={()=>setConfirmOpen(true)} className="text-red-500 hover:text-red-700">
             <img src={trash} />
           </button>

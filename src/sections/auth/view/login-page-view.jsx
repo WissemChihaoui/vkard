@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Button from '../../../components/button/Button';
 import LoginSection from '../login-section';
 import RegisterSection from '../register-section';
+import { Link } from 'react-router-dom';
+import { paths } from '../../../routes/paths';
 
 export default function LoginPageView() {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,6 +28,7 @@ export default function LoginPageView() {
             >
               S’enregistrer
             </Button>
+            <Link to={paths.admin.auth} className='text-sm text-center underline mx-5'>Connecter en tant que admin</Link>
           </div>
         </div>
         <div className="w-2/3 p-8">

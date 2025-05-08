@@ -4,6 +4,7 @@ import Heading from "../../../components/heading/heading";
 import Input from "../../../components/input/input";
 import Button from "../../../components/button/Button";
 import { useCheckoutContext } from "../context";
+import CheckoutButton from "../../../components/checkoutButton";
 
 export default function CheckoutPageView() {
   const { subtotal, tva, total, onCreateBilling } = useCheckoutContext();
@@ -218,6 +219,11 @@ export default function CheckoutPageView() {
             <Button type="submit" className="mt-4 w-full">
               Valider la commande
             </Button>
+            <CheckoutButton 
+            cartItems={[
+              { name: 'Carte VKARD', price: 5400, quantity: 1 }, // price in cents!
+              { name: 'Carte VKARD Bois', price: 5400, quantity: 1 },
+            ]}/>
           </div>
         </div>
       </div>

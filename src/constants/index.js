@@ -366,3 +366,6 @@ export const socials = [
     url: "#",
   },
 ];
+
+
+export const STORAGE_KEY = 'speedgi_access_token';

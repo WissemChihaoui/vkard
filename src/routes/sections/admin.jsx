@@ -1,6 +1,8 @@
 import { lazy, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import AdminLayout from "../../layouts/admin-layout";
+import AuthLayout from "../../layouts/auth-layout";
+import { AuthGuard } from "../../auth/guard";
 
 const Dashboard = lazy(() => import("../../pages/admin/dashboard/index"));
 const Cards = lazy(() => import("../../pages/admin/dashboard/cards"));
@@ -11,15 +13,18 @@ const ViewClient = lazy(() => import("../../pages/admin/dashboard/view-client"))
 const Auth = lazy(() => import("../../pages/admin/auth/index"));
 
 export const adminRoutes = [
+  // Admin layout routes
   {
+    path: "admin",
     element: (
+      <AuthGuard requiredRole="admin">
       <AdminLayout>
-        <Suspense fallback={<p>Loading</p>}>
+        <Suspense fallback={<p>Loading...</p>}>
           <Outlet />
         </Suspense>
       </AdminLayout>
+      </AuthGuard>
     ),
-    path: "admin",
     children: [
       {
         index: true,
@@ -38,9 +43,9 @@ export const adminRoutes = [
           },
           {
             path: ":id",
-            element: <ViewClient />
-          }
-        ]
+            element: <ViewClient />,
+          },
+        ],
       },
       {
         path: "orders",
@@ -51,14 +56,22 @@ export const adminRoutes = [
           },
           {
             path: ":id",
-            element: <ViewOrders />
-          }
-        ]
-      },
-      {
-        path: "auth",
-        element: <Auth />,
+            element: <ViewOrders />,
+          },
+        ],
       },
     ],
+  },
+
+  // Auth route (no AdminLayout, but still under /admin)
+  {
+    path: "admin/auth",
+    element: (
+      <AuthLayout>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Auth />
+        </Suspense>
+      </AuthLayout>
+    ),
   },
 ];

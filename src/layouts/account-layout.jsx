@@ -1,16 +1,31 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { paths } from '../routes/paths';
+import { signOut } from '../actions/auth';
+import { useAuthContext } from '../auth/hooks';
 
-const menuItems = [
-  { label: 'Tableau de bord', link: paths.profile.root },
-  { label: 'Commandes', link: paths.profile.orders },
-  { label: 'Détails du compte', link: paths.profile.editAccount },
-  { label: 'Administrer mes VKARDs', link: paths.profile.cards },
-  { label: 'Se déconnecter', link: paths.root },
-];
+
+
 
 export default function AccountLayout({ children }) {
+  const menuItems = [
+    { label: 'Tableau de bord', link: paths.profile.root },
+    { label: 'Commandes', link: paths.profile.orders },
+    { label: 'Détails du compte', link: paths.profile.editAccount },
+    { label: 'Administrer mes VKARDs', link: paths.profile.cards },
+    { label: 'Se déconnecter', link: paths.root, action: ()=>handleLogout() },
+  ];
+  const { checkUserSession } = useAuthContext();
+  const handleLogout = useCallback(async () => {
+    try {
+      await signOut();
+      await checkUserSession?.();
+  
+      // router.refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [checkUserSession]);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation(); // 👈 Get current URL path
 
@@ -45,11 +60,13 @@ export default function AccountLayout({ children }) {
         </div>
 
         <nav className="flex flex-col space-y-2 px-6">
-          {menuItems.map(({ label, link }) => {
+          {menuItems.map(({ label, link, action }) => {
             const isActive = location.pathname === link;
 
             return (
               <Link
+              onClick={action}
+
                 key={link}
                 to={link}
                 className={`px-4 py-2 rounded transition ${

@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import MainLayout from "../../layouts/main-layout";
 import AccountLayout from "../../layouts/account-layout";
+import { AuthGuard, GuestGuard } from "../../auth/guard";
 // import Loader from "../../components/loader/loader";
 
 const ViewProduct = lazy(() => import("../../pages/main/products/view"));
@@ -12,6 +13,14 @@ const Profile = lazy(() => import("../../pages/profile/index"));
 const ProfileOrders = lazy(() => import("../../pages/profile/orders"));
 const ProfileDetails = lazy(() => import("../../pages/profile/details"));
 const ProfileCards = lazy(() => import("../../pages/profile/cards"));
+
+const layoutContent = (
+  <AccountLayout>
+    <Suspense fallback={<p>Loading ...</p>}>
+    <Outlet />
+    </Suspense>
+  </AccountLayout>
+)
 
 export const mainRoutes = [
   {
@@ -29,12 +38,12 @@ export const mainRoutes = [
       { 
         path: "auth", 
         children: [
-          { index: true, element: <Login />}
+          { index: true, element: <GuestGuard><Login /></GuestGuard>}
         ]
       },
       {
         path: "my-account",
-        element: <AccountLayout><Outlet /></AccountLayout>,
+        element: <AuthGuard requiredRole="client">{layoutContent}</AuthGuard>,
         children: [
           { index: true, element: <Profile />},
           { path: 'orders', element: <ProfileOrders />},

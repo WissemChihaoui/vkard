@@ -111,6 +111,10 @@ import profileLogout from "./profileIcons/logout.svg";
 import profileOrders from "./profileIcons/orders.svg";
 import profileUser from "./profileIcons/user.svg";
 
+import speedgiLogo from "./speedgi-logo.svg";
+import speedgiSmallLogo from "./speedgi-small-logo.svg";
+import speedgiWhiteLogo from "./speedgi-white-logo.svg";
+
 export {
   profileDownloads,
   profileFav,
@@ -209,4 +213,7 @@ export {
   socialGoogle,
   socialLinkedin,
   socialX,
+  speedgiLogo,
+  speedgiSmallLogo,
+  speedgiWhiteLogo
 };

@@ -20,6 +20,50 @@ export const signInWithPassword = async ({ email, password }) => {
     }
   };
 
+  export const registerAccount = async ({
+    email,
+    first_name,
+    last_name,
+    company,
+    country,
+    street_number,
+    apartment,
+    zip,
+    city,
+    phone
+  }) => {
+    try {
+      const params = {
+        email,
+        first_name,
+        last_name,
+        company,
+        country,
+        street_number,
+        apartment,
+        zip,
+        city,
+        phone
+      };
+  
+      const res = await axios.post(endpoints.auth.signUp, params);
+      console.log('Registration success:', res);
+  
+      const { token } = res.data;
+  
+      if (!token) {
+        throw new Error('Access token not found in registration response');
+      }
+  
+      setSession(token);
+    } catch (error) {
+      console.error('Error during registration:', error);
+      throw error;
+    }
+  };
+  
+
+
   
 /** **************************************
  * Sign out

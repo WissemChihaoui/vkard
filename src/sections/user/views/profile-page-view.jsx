@@ -78,7 +78,7 @@ export default function ProfilePageView() {
       <div className="flex flex-col gap-4 p-4">
         {/* Email Card */}
         <a
-          href="mailto:wissemchihaoui7@gmail.com"
+          href="mailto:beverly_little@gmail.com"
           className="flex items-center gap-4 p-4 border rounded-xl shadow-md hover:shadow-lg transition"
         >
           <div className="bg-blue-100 text-blue-600 w-10 h-10 flex items-center justify-center rounded-full text-lg font-semibold">
@@ -87,14 +87,14 @@ export default function ProfilePageView() {
           <div className="flex flex-col">
             <span className="text-sm text-gray-300">Email</span>
             <span className="text-base font-medium text-gray-100">
-              wissemchihaoui7@gmail.com
+              beverly_little@gmail.com
             </span>
           </div>
         </a>
 
         {/* Phone Card */}
         <a
-          href="tel:+21696525978"
+          href="tel:+0611125888"
           className="flex items-center gap-4 p-4 border rounded-xl shadow-md hover:shadow-lg transition"
         >
           <div className="bg-green-100 text-green-600 w-10 h-10 flex items-center justify-center rounded-full text-lg font-semibold">
@@ -103,7 +103,7 @@ export default function ProfilePageView() {
           <div className="flex flex-col">
             <span className="text-sm text-gray-300">Téléphone</span>
             <span className="text-base font-medium text-gray-100">
-              +216 96 525 978
+              +06 11 12 58 88
             </span>
           </div>
         </a>
@@ -114,7 +114,7 @@ export default function ProfilePageView() {
           <div className="flex flex-col">
             <span className="text-sm text-gray-300">Adresse</span>
             <span className="text-base font-medium text-gray-100">
-              123 Rue Habib Bourguiba, Tunis, Tunisie
+              91 Rue de l'Alzette, 4011 Esch-sur-Alzette
             </span>
           </div>
         </div>

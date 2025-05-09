@@ -9,8 +9,8 @@ export default function LoginPageView() {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <div className="flex items-center justify-center  p-4">
-      <div className="shadow-lg rounded-lg max-w-4xl w-full flex overflow-hidden">
+    <div className="flex items-center justify-center p-4 ">
+      <div className="shadow-lg rounded-lg max-w-4xl w-full flex overflow-hidden ">
         
         {/* Sidebar Switch */}
         <div className="w-1/3 p-6 border-r">
@@ -28,14 +28,15 @@ export default function LoginPageView() {
             >
               S’enregistrer
             </Button>
-            <Link to={paths.admin.auth} className='text-sm text-center underline mx-5'>Connecter en tant que admin</Link>
+            <Link to={paths.admin.auth} className='text-sm text-center underline'>Se connecter en tant qu’admin</Link>
           </div>
         </div>
+
         <div className="w-2/3 p-8">
           {isLogin ? (
             <LoginSection />
           ) : (
-            <RegisterSection />
+            <RegisterSection setIsLogin={setIsLogin} />
           )}
         </div>
       </div>

@@ -10,6 +10,7 @@ import {
 import { useSearchParams } from "../../../routes/hooks";
 
 import { getStorage, useLocalStorage } from "../../../hooks/use-local-storage";
+import { submitOrderHandler } from "../../../actions/orders";
 
 // ----------------------------------------------------------------------
 
@@ -174,6 +175,16 @@ function Container({ children }) {
     [setField]
   );
 
+  const submitOrder = useCallback(async (formData) => {
+    try {
+      await submitOrderHandler(formData, state, );
+
+    }catch (error) {
+      console.error(error);
+    }
+  }, [state])
+
+
 
   const memoizedValue = useMemo(
     () => ({
@@ -194,6 +205,8 @@ function Container({ children }) {
       onApplyShipping,
       //
       activeStep,
+
+      submitOrder
     }),
     [
       state,
@@ -208,6 +221,7 @@ function Container({ children }) {
       onCreateBilling,
       onDecreaseQuantity,
       onIncreaseQuantity,
+      submitOrder
     ]
   );
 

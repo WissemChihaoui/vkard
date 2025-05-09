@@ -37,4 +37,7 @@ export const endpoints = {
     signUp: '/api/auth/register',
     logout: '/api/auth/logout'
   },
+  orders: {
+    submit: '/api/create-checkout-session'
+  }
 };

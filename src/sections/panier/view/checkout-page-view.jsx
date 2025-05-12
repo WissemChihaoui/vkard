@@ -25,11 +25,6 @@ export default function CheckoutPageView() {
     zip: "",
     city: "",
     phone: "",
-    shipToDifferent: false,
-    payment: "card",
-    cardNumber: "",
-    cardExpiry: "",
-    cardCcv: "",
   });
 
   useEffect(() => {
@@ -37,18 +32,15 @@ export default function CheckoutPageView() {
       setFormData((prev) => ({
         ...prev,
         email: user.email || "",
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
+        firstName: user.first_name || "",
+        lastName: user.last_name || "",
         company: user.company || "",
         country: user.country || "",
-        streetNumber: user.streetNumber || "",
+        streetNumber: user.street_number || "",
         apartment: user.apartment || "",
         zip: user.zip || "",
         city: user.city || "",
         phone: user.phone || "",
-        cardNumber: user.cardNumber || "",
-        cardExpiry: user.cardExpiry || "",
-        cardCcv: user.cardCcv || "",
       }));
     }
   }, [user]);
@@ -86,7 +78,7 @@ export default function CheckoutPageView() {
 
   return (
     <Section className="xl:py-6 lg:py-4">
-      <div className="container">
+      <form  onSubmit={handleCheckout} className="container">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left - Billing Form */}
           <div className="lg:col-span-2">
@@ -96,13 +88,13 @@ export default function CheckoutPageView() {
               setLoginData={setLoginData}
               loginData={loginData}
             />
-            <form
-              onSubmit={handleCheckout}
+            <div
+             
               className="bg-n-1/5 p-6 rounded-xl flex flex-col gap-4 h-min"
             >
               <h4 className="text-xl font-bold mb-4">Détails de facturation</h4>
               <Input
-              readOnly={user?.email}
+                readOnly={user?.email}
                 name="email"
                 type="email"
                 placeholder="E-mail"
@@ -177,22 +169,7 @@ export default function CheckoutPageView() {
                 value={formData.phone}
                 onChange={handleChange}
               />
-              {/* <label className="flex items-center gap-3 mt-2">
-                <input
-                  type="checkbox"
-                  name="shipToDifferent"
-                  checked={formData.shipToDifferent}
-                  onChange={handleChange}
-                  className="w-5 h-5 accent-primary rounded border border-gray-300"
-                />
-                <span className="text-sm font-medium">
-                  Expédier à une adresse différente ?
-                </span>
-              </label> */}
-              <Button type="submit" className="mt-4 w-full">
-                Valider la commande
-              </Button>
-            </form>
+            </div>
           </div>
 
           {/* Right - Summary + Payment */}
@@ -212,15 +189,18 @@ export default function CheckoutPageView() {
                 <span>{total.toFixed(2)} €</span>
               </div>
             </div>
-            <CheckoutButton
+            <Button type="submit" className="mt-4 w-full">
+              Valider la commande
+            </Button>
+            {/* <CheckoutButton
               cartItems={[
                 { name: "Carte VKARD", price: 5400, quantity: 1 },
                 { name: "Carte VKARD Bois", price: 5400, quantity: 1 },
               ]}
-            />
+            /> */}
           </div>
         </div>
-      </div>
+      </form>
     </Section>
   );
 }

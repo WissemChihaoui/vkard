@@ -8,6 +8,7 @@ import { AuthGuard, GuestGuard } from "../../auth/guard";
 const ViewProduct = lazy(() => import("../../pages/main/products/view"));
 const Panier = lazy(() => import("../../pages/main/panier/index"));
 const Checkout = lazy(() => import("../../pages/main/panier/checkout"));
+const OrderSuccess = lazy(() => import("../../pages/main/panier/order-success"));
 const Login = lazy(() => import("../../pages/auth/login"));
 const Profile = lazy(() => import("../../pages/profile/index"));
 const ProfileOrders = lazy(() => import("../../pages/profile/orders"));
@@ -35,6 +36,7 @@ export const mainRoutes = [
       { path: "product", element: <ViewProduct /> },
       { path: "panier", element: <Panier /> },
       { path: "checkout", element: <Checkout /> },
+      { path: "success", element: <OrderSuccess /> },
       { 
         path: "auth", 
         children: [

@@ -28,8 +28,7 @@ export default function Services() {
                 <div className="flex flex-col-reverse lg:flex-row">
                   <div>
                     <h4 className="h4 mb-4">
-                      Pourquoi la carte de visite NFC va révolutionner votre vie
-                      professionnelle
+                      Carte nfc
                     </h4>
                     <p className="body-2 text-n-4">
                       Grâce à la technologie Near Field Communication (NFC) la
@@ -63,7 +62,7 @@ export default function Services() {
                   <img src={vCardBlack} className="max-w-80 mb-4 mx-auto" alt="" />
                   <div>
                     <h4 className="h4 mb-4">
-                      1 - Badgez en NFC ou flashez le QRCode
+                      1 - Création site Web
                     </h4>
                     <p className="body-2 text-n-4">
                       Les VKARD fonctionnent avec iOS & Android sans avoir
@@ -90,7 +89,7 @@ export default function Services() {
                 <div className="flex flex-col">
                   <img src={vCardBlack} className="max-w-80 mb-4 mx-auto" alt="" />
                   <div>
-                    <h4 className="h4 mb-4">2 - Créez de l'engagement</h4>
+                    <h4 className="h4 mb-4">2 - Optimisation fiche google mybusiness</h4>
                     <p className="body-2 text-n-4">
                       Faites une impression mémorable en partageant vos infos de
                       contact mais aussi prise de rendez-vous en ligne,
@@ -116,7 +115,7 @@ export default function Services() {
                 <div className="flex flex-col">
                   <img src={vCardBlack} className="max-w-80 mb-4 mx-auto" alt="" />
                   <div>
-                    <h4 className="h4 mb-4">3 - Echangez et synchronisez</h4>
+                    <h4 className="h4 mb-4">3 - Optimisation seo</h4>
                     <p className="body-2 text-n-4">
                       Récupérez les coordonnées de vos prospects grâce à
                       l’échange synchronisable avec votre suite CRM préférée.

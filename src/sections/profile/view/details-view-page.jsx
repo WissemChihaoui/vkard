@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import Button from "../../../components/button/Button";
 import Input from "../../../components/input/input";
+import { useAuthContext } from "../../../auth/hooks";
+import { changePassword, updateMe } from "../../../actions/users";
+import { toast } from "react-toastify";
 
 export default function DetailsViewPage() {
+  const { user } = useAuthContext();
+
   const [formData, setFormData] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    company: "",
-    country: "",
-    streetNumber: "",
-    apartment: "",
-    zip: "",
-    city: "",
-    phone: "",
+    email: user?.email || '',
+    firstName: user?.first_name || '',
+    lastName: user?.last_name || '',
+    company: user?.company || '',
+    country: user?.country || '',
+    streetNumber: user?.street_number || '',
+    apartment: user?.apartment || '',
+    zip: user?.zip || '',
+    city: user?.city || '',
+    phone: user?.phone || '',
   });
 
   const [passwordData, setPasswordData] = useState({
-    oldPassword: "",
-    newPassword: "",
-    confirmPassword: "",
+    current_password: "",
+    new_password: "",
+    new_password_confirmation: "",
   });
 
   const handleChange = (e) => {
@@ -38,123 +43,98 @@ export default function DetailsViewPage() {
     }));
   };
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    await toast.promise(
+      updateMe(formData),
+      {
+        pending: 'Mise à jour en cours...',
+        success: 'Profil mis à jour avec succès !',
+        error: "Une erreur s'est produite lors de la mise à jour.",
+      }
+    );
+  };
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+
+    if (passwordData.new_password !== passwordData.new_password_confirmation) {
+      toast.error("Confirmer votre mot de passe");
+      return;
+    }
+
+    try {
+      await toast.promise(
+        changePassword(passwordData),
+        {
+          pending: 'Mise à jour du mot de passe...',
+          success: 'Mot de passe modifié avec succès !',
+          error: "Échec de la mise à jour du mot de passe.",
+        }
+      );
+
+      // ✅ Reset password fields if success
+      setPasswordData({
+        current_password: "",
+        new_password: "",
+        new_password_confirmation: "",
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className=" mx-auto space-y-10">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
-        <h2 className="text-xl font-semibold">Détails du compte</h2>
-        <Button onClick={() => alert("Fonction d'enregistrement ici.")}>
-          Enregistrer
-        </Button>
-      </div>
+      <form className="border p-6 rounded-xl flex flex-col gap-4 shadow" onSubmit={onSubmit}>
+        <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
+          <h2 className="text-xl font-semibold">Détails du compte</h2>
+          <Button type="submit">Enregistrer</Button>
+        </div>
 
-      {/* Profile Info Form */}
-      <form className="border p-6 rounded-xl flex flex-col gap-4 shadow">
-        <Input
-          name="email"
-          type="email"
-          placeholder="E-mail *"
-          required
-          value={formData.email}
-          onChange={handleChange}
-        />
+        <Input name="email" type="email" placeholder="E-mail *" required value={formData.email} onChange={handleChange} />
         <div className="grid md:grid-cols-2 gap-4">
-          <Input
-            name="firstName"
-            placeholder="Prénom *"
-            required
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-          <Input
-            name="lastName"
-            placeholder="Nom *"
-            required
-            value={formData.lastName}
-            onChange={handleChange}
-          />
+          <Input name="firstName" placeholder="Prénom *" required value={formData.firstName} onChange={handleChange} />
+          <Input name="lastName" placeholder="Nom *" required value={formData.lastName} onChange={handleChange} />
         </div>
-        <Input
-          name="company"
-          placeholder="Nom de l’entreprise (facultatif)"
-          value={formData.company}
-          onChange={handleChange}
-        />
-        <Input
-          name="country"
-          placeholder="Pays/région *"
-          required
-          value={formData.country}
-          onChange={handleChange}
-        />
+        <Input name="company" placeholder="Nom de l’entreprise (facultatif)" value={formData.company} onChange={handleChange} />
+        <Input name="country" placeholder="Pays/région *" required value={formData.country} onChange={handleChange} />
         <div className="grid md:grid-cols-2 gap-4">
-          <Input
-            name="streetNumber"
-            placeholder="Numéro et nom de rue *"
-            required
-            value={formData.streetNumber}
-            onChange={handleChange}
-          />
-          <Input
-            name="apartment"
-            placeholder="Bâtiment, appartement (facultatif)"
-            value={formData.apartment}
-            onChange={handleChange}
-          />
+          <Input name="streetNumber" placeholder="Numéro et nom de rue *" required value={formData.streetNumber} onChange={handleChange} />
+          <Input name="apartment" placeholder="Bâtiment, appartement (facultatif)" value={formData.apartment} onChange={handleChange} />
         </div>
         <div className="grid md:grid-cols-2 gap-4">
-          <Input
-            name="zip"
-            placeholder="Code postal *"
-            required
-            value={formData.zip}
-            onChange={handleChange}
-          />
-          <Input
-            name="city"
-            placeholder="Ville *"
-            required
-            value={formData.city}
-            onChange={handleChange}
-          />
+          <Input name="zip" placeholder="Code postal *" required value={formData.zip} onChange={handleChange} />
+          <Input name="city" placeholder="Ville *" required value={formData.city} onChange={handleChange} />
         </div>
-        <Input
-          name="phone"
-          placeholder="Téléphone *"
-          required
-          value={formData.phone}
-          onChange={handleChange}
-        />
+        <Input name="phone" placeholder="Téléphone *" required value={formData.phone} onChange={handleChange} />
       </form>
 
-      {/* Password Update Section */}
-      <div className="border p-6 rounded-xl shadow space-y-4">
+      <form onSubmit={handlePasswordSubmit} className="border p-6 rounded-xl shadow space-y-4">
         <h3 className="text-lg font-semibold">Changer le mot de passe</h3>
         <Input
-          name="oldPassword"
+          name="current_password"
           type="password"
           placeholder="Mot de passe actuel *"
-          value={passwordData.oldPassword}
+          value={passwordData.current_password}
           onChange={handlePasswordChange}
         />
         <Input
-          name="newPassword"
+          name="new_password"
           type="password"
           placeholder="Nouveau mot de passe *"
-          value={passwordData.newPassword}
+          value={passwordData.new_password}
           onChange={handlePasswordChange}
         />
         <Input
-          name="confirmPassword"
+          name="new_password_confirmation"
           type="password"
           placeholder="Confirmer le mot de passe *"
-          value={passwordData.confirmPassword}
+          value={passwordData.new_password_confirmation}
           onChange={handlePasswordChange}
         />
-        <Button onClick={() => alert("Mise à jour du mot de passe")}>
-          Modifier le mot de passe
-        </Button>
-      </div>
+        <Button type="submit">Modifier le mot de passe</Button>
+      </form>
     </div>
   );
 }

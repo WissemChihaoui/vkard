@@ -11,6 +11,7 @@ import { useSearchParams } from "../../../routes/hooks";
 
 import { getStorage, useLocalStorage } from "../../../hooks/use-local-storage";
 import { submitOrderHandler } from "../../../actions/orders";
+import { toast } from "react-toastify";
 
 // ----------------------------------------------------------------------
 
@@ -86,6 +87,7 @@ function Container({ children }) {
     setField("tva", tva); // ← Add this line
     setField("total", total); // ← Update total to include TVA
   }, [setField, state.discount, state.items, state.shipping]);
+  
   useEffect(() => {
     const restoredValue = getStorage(STORAGE_KEY);
     if (restoredValue) {
@@ -177,12 +179,18 @@ function Container({ children }) {
 
   const submitOrder = useCallback(async (formData) => {
     try {
-      await submitOrderHandler(formData, state, );
+      const res = await submitOrderHandler(formData, state );
+       if (res?.stripe_url) {
+            setState([])
+            window.location.href = res.stripe_url;
+          } else {
+            toast.error("Erreur lors de la création de la session Stripe.");
+          }
 
     }catch (error) {
       console.error(error);
     }
-  }, [state])
+  }, [state, setState])
 
 
 

@@ -36,7 +36,7 @@ export const mainRoutes = [
       { path: "product", element: <ViewProduct /> },
       { path: "panier", element: <Panier /> },
       { path: "checkout", element: <Checkout /> },
-      { path: "success", element: <OrderSuccess /> },
+      { path: "order-success", element: <OrderSuccess /> },
       { 
         path: "auth", 
         children: [

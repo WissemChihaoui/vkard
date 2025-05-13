@@ -38,6 +38,11 @@ export const endpoints = {
     logout: '/api/auth/logout'
   },
   orders: {
-    submit: '/api/create-checkout-session'
+    submit: '/api/create-checkout-session',
+    getMine: '/api/orders'
+  },
+  users: {
+    updateMe: '/api/update-me',
+    changePassword: '/api/change-password',
   }
 };

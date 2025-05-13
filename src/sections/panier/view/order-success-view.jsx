@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useCheckoutContext } from '../context';
 
 export default function OrderSuccessView() {
+  const { onUpdate } = useCheckoutContext();
+
+  useEffect(() => {
+    // Reset cart on success view load
+   onUpdate([{
+      
+      items: [],
+      total: 0,
+      subtotal: 0,
+      tva: 0,
+      discount: 0,
+      shipping: 0,
+      billing: null,
+      totalItems: 0,
+    }]);
+  }, [onUpdate]);
+
   return (
     <div className="flex items-center justify-center px-4 py-12">
       <div className="max-w-md w-full rounded-xl shadow-md p-8 text-center">

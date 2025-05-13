@@ -78,7 +78,7 @@ export default function CheckoutPageView() {
 
   return (
     <Section className="xl:py-6 lg:py-4">
-      <form  onSubmit={handleCheckout} className="container">
+      <div className="container">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left - Billing Form */}
           <div className="lg:col-span-2">
@@ -88,7 +88,7 @@ export default function CheckoutPageView() {
               setLoginData={setLoginData}
               loginData={loginData}
             />
-            <div
+            <form onSubmit={handleCheckout}
              
               className="bg-n-1/5 p-6 rounded-xl flex flex-col gap-4 h-min"
             >
@@ -169,7 +169,10 @@ export default function CheckoutPageView() {
                 value={formData.phone}
                 onChange={handleChange}
               />
-            </div>
+              <Button type="submit" className="mt-4 w-full">
+              Valider la commande
+            </Button>
+            </form>
           </div>
 
           {/* Right - Summary + Payment */}
@@ -189,9 +192,7 @@ export default function CheckoutPageView() {
                 <span>{total.toFixed(2)} €</span>
               </div>
             </div>
-            <Button type="submit" className="mt-4 w-full">
-              Valider la commande
-            </Button>
+            
             {/* <CheckoutButton
               cartItems={[
                 { name: "Carte VKARD", price: 5400, quantity: 1 },
@@ -200,7 +201,7 @@ export default function CheckoutPageView() {
             /> */}
           </div>
         </div>
-      </form>
+      </div>
     </Section>
   );
 }

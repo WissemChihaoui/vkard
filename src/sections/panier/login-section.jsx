@@ -13,6 +13,7 @@ export default function LoginSection({ user, handleLoginSubmit, setLoginData, lo
   return (
     <form
       onSubmit={handleLoginSubmit}
+      method="post"
       className="mb-6 bg-n-1/5 p-6 rounded-xl flex flex-col gap-4"
     >
       <h4 className="text-xl font-bold mb-4">Connexion</h4>

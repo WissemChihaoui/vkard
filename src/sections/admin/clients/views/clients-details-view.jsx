@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { paths } from "../../../../routes/paths";
 import { chevronLeft, eye } from "../../../../assets/admin";
+import { fDate } from "../../../../utils/format-time";
 
 // type Client = {
 //   email: string;
@@ -43,7 +44,7 @@ const client={
     { id: 1, reference: "#CMD-203", date: "2025-05-01", status: "Confirmée", cardsCount: 2 },
     { id: 2, reference: "#CMD-202", date: "2025-04-25", status: "Annulée", cardsCount: 2 },
   ]
-export default function ClientDetailsView() {
+export default function ClientDetailsView({user}) {
   return (
     <div className="space-y-6 px-4 py-6">
       <div className="flex justify-between items-center mb-4">
@@ -62,22 +63,22 @@ export default function ClientDetailsView() {
       <section className="p-4 rounded shadow bg-n-7">
         <h2 className="text-lg font-medium mb-4">Informations personnelles</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
-          <div><strong>Prénom:</strong> {client.firstName}</div>
-          <div><strong>Nom:</strong> {client.lastName}</div>
-          <div><strong>Email:</strong> {client.email}</div>
-          <div><strong>Téléphone:</strong> {client.phone}</div>
-          <div><strong>Entreprise:</strong> {client.company}</div>
+          <div><strong>Prénom:</strong> {user.first_name}</div>
+          <div><strong>Nom:</strong> {user.last_name}</div>
+          <div><strong>Email:</strong> {user.email}</div>
+          <div><strong>Téléphone:</strong> {user.phone}</div>
+          <div><strong>Entreprise:</strong> {user.company}</div>
         </div>
       </section>
 
       <section className="p-4 rounded shadow bg-n-7">
         <h2 className="text-lg font-medium mb-4">Adresse</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
-          <div><strong>Numéro:</strong> {client.streetNumber}</div>
-          <div><strong>Appartement:</strong> {client.apartment}</div>
-          <div><strong>Code Postal:</strong> {client.zip}</div>
-          <div><strong>Ville:</strong> {client.city}</div>
-          <div><strong>Pays:</strong> {client.country}</div>
+          <div><strong>Numéro:</strong> {user.street_number}</div>
+          <div><strong>Appartement:</strong> {user.apartment}</div>
+          <div><strong>Code Postal:</strong> {user.zip}</div>
+          <div><strong>Ville:</strong> {user.city}</div>
+          <div><strong>Pays:</strong> {user.country}</div>
         </div>
       </section>
 
@@ -91,17 +92,15 @@ export default function ClientDetailsView() {
                 <th className="px-4 py-2 border">Référence</th>
                 <th className="px-4 py-2 border">Date</th>
                 <th className="px-4 py-2 border">Statut</th>
-                <th className="px-4 py-2 border">Cartes</th>
                 <th className="px-4 py-2 border">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {orders.map((order, index) => (
+              {user?.orders?.map((order, index) => (
                 <tr key={index} className="hover:bg-n-6">
-                  <td className="px-4 py-2 border"><Link to={paths.admin.orders.view(order.id)}>{order.reference}</Link></td>
-                  <td className="px-4 py-2 border">{order.date}</td>
+                  <td className="px-4 py-2 border"><Link to={paths.admin.orders.view(order.id)}>{order.id}</Link></td>
+                  <td className="px-4 py-2 border">{fDate(order.created_at)}</td>
                   <td className="px-4 py-2 border">{order.status}</td>
-                  <td className="px-4 py-2 border">{order.cardsCount}</td>
                   <td className="px-4 py-2 border"><Link to={paths.admin.orders.view(order.id)}>
                     <img src={eye} alt="Voir" />
                   </Link></td>

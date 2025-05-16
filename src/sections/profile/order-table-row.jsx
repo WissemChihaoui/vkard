@@ -7,6 +7,7 @@ export default function OrderTableRow({ order }) {
       <td className="p-3 font-medium">{order.id}</td>
       <td className="p-3">{fDate(order.created_at)}</td>
       <td className="p-3">{order.status}</td>
+      <td className="p-3">{order.shipping > 0 ? 'Xpresspost' : 'Poste-lettre'}</td>
       <td className="p-3">{order.total_price} €</td>
 
       <td className="p-3">

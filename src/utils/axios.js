@@ -28,6 +28,51 @@ export const fetcher = async (args) => {
   }
 };
 
+// POST
+export const poster = async (url, data = {}, config = {}) => {
+  try {
+    const res = await axiosInstance.post(url, data, config);
+    return res.data;
+  } catch (error) {
+    console.error('❌ Failed to post:', error);
+    throw error;
+  }
+};
+
+// PUT
+export const putter = async (url, data = {}, config = {}) => {
+  try {
+    const res = await axiosInstance.put(url, data, config);
+    return res.data;
+  } catch (error) {
+    console.error('❌ Failed to put:', error);
+    throw error;
+  }
+};
+
+// DELETE
+export const deleter = async (url, config = {}) => {
+  try {
+    const res = await axiosInstance.delete(url, config);
+    return res.data;
+  } catch (error) {
+    console.error('❌ Failed to delete:', error);
+    throw error;
+  }
+};
+
+// PATCH (optional)
+export const patcher = async (url, data = {}, config = {}) => {
+  try {
+    const res = await axiosInstance.patch(url, data, config);
+    return res.data;
+  } catch (error) {
+    console.error('❌ Failed to patch:', error);
+    throw error;
+  }
+};
+
+
 // ----------------------------------------------------------------------
 
 export const endpoints = {
@@ -39,10 +84,22 @@ export const endpoints = {
   },
   orders: {
     submit: '/api/create-checkout-session',
-    getMine: '/api/orders'
+    getMine: '/api/orders',
+    all: '/api/orders/all',
+    get: (id) => `/api/order/${id}`,
+    delete: (id) => `/api/order/${id}`
   },
   users: {
     updateMe: '/api/update-me',
     changePassword: '/api/change-password',
+    all: '/api/users',
+    get:(id)=>`/api/users/${id}`,
+    delete: (id) => `/api/users/${id}`
+  },
+  cards: {
+    getMine: '/api/cards',
+    submit: '/api/submit-card',
+    all: '/api/cards/all',
+    delete: (id)=> `/api/cards/${id}`
   }
 };

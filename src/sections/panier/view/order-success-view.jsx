@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useCheckoutContext } from '../context';
+import { mutate } from 'swr';
+import { endpoints } from '../../../utils/axios';
 
 export default function OrderSuccessView() {
   const { onUpdate } = useCheckoutContext();
@@ -18,6 +20,8 @@ export default function OrderSuccessView() {
       totalItems: 0,
     }]);
   }, [onUpdate]);
+
+  // mutate(endpoints.orders.all)
 
   return (
     <div className="flex items-center justify-center px-4 py-12">

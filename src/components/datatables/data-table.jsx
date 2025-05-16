@@ -133,19 +133,58 @@ export default function DataTable({ columns, data, renderRow }) {
           //   label="Nombre des lignes"
           onChange={(e) => setItemsPerPage(e.target.value)}
         />
-        <div className="mt-4 flex justify-end gap-2 text-sm text-n-1">
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              className={`px-3 py-1 rounded border ${
-                i + 1 === currentPage ? "bg-n-5 text-white" : "hover:bg-n-2"
-              }`}
-              onClick={() => setCurrentPage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-        </div>
+        <div className="mt-4 flex justify-end gap-2 text-sm text-n-1 flex-wrap">
+  <button
+    className="px-3 py-1 rounded border hover:bg-n-2"
+    disabled={currentPage === 1}
+    onClick={() => setCurrentPage(1)}
+  >
+    «
+  </button>
+
+  <button
+    className="px-3 py-1 rounded border hover:bg-n-2"
+    disabled={currentPage === 1}
+    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+  >
+    ‹
+  </button>
+
+  {/* Show only previous, current, and next page */}
+  {[
+    currentPage - 1,
+    currentPage,
+    currentPage + 1,
+  ]
+    .filter((page) => page >= 1 && page <= totalPages)
+    .map((page) => (
+      <button
+        key={page}
+        className={`px-3 py-1 rounded border ${
+          page === currentPage ? "bg-n-5 text-white" : "hover:bg-n-2"
+        }`}
+        onClick={() => setCurrentPage(page)}
+      >
+        {page}
+      </button>
+    ))}
+
+  <button
+    className="px-3 py-1 rounded border hover:bg-n-2"
+    disabled={currentPage === totalPages}
+    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+  >
+    ›
+  </button>
+
+  <button
+    className="px-3 py-1 rounded border hover:bg-n-2"
+    disabled={currentPage === totalPages}
+    onClick={() => setCurrentPage(totalPages)}
+  >
+    »
+  </button>
+</div>
       </div>
     </div>
   );

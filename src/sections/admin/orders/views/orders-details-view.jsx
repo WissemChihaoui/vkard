@@ -3,6 +3,12 @@ import Select from "../../../../components/select/select";
 import { chevronLeft, eye } from "../../../../assets/admin";
 import { Link } from "react-router-dom";
 import { paths } from "../../../../routes/paths";
+import { fDate } from "../../../../utils/format-time";
+import VkardEditModal from "../../../profile/vkard-edit-modal";
+import { toast } from "react-toastify";
+import { submitCardData } from "../../../../actions/cards";
+import { mutate } from "swr";
+import { endpoints } from "../../../../utils/axios";
 
 const client = {
   name: "John Doe",
@@ -17,45 +23,47 @@ const initialOrder = {
   status: "Confirmée",
 };
 
-const vcards = [
-  {
-    id: 1,
-    name: "Wissem Chihaoui",
-    type: "Carte 1",
-    amount: "15 DT",
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Jane Doe",
-    type: "Carte 2",
-    amount: "5 DT",
-    status: "Expirée",
-  },
-];
+export default function OrdersDetailsView({ order, vcards }) {
+  const [orderStatus, setOrderStatus] = useState(order?.status);
+  const [showModal, setShowModal] = useState(false);
+  const [editData, setEditData] = useState(null);
 
-export default function OrdersDetailsView() {
-  const [orderStatus, setOrderStatus] = useState(initialOrder.status);
+  const handleEditClick = (card) => {
+    console.log('edit card')
+    setEditData(card);
+    setShowModal(true);
+  };
 
-  const totalPrice = vcards.reduce((total, card) => {
-    const amount = parseFloat(card.amount.replace(" DT", ""));
-    return total + (isNaN(amount) ? 0 : amount);
-  }, 0);
+  const handleSave = () => {
+    console.log("Save logic here", editData);
+    setShowModal(false);
+    toast
+      .promise(submitCardData(editData), {
+        loading: "Enregistrement en cours...",
+        success: "Carte mise à jour avec succès !",
+        error: "Échec de la mise à jour de la carte.",
+      })
+      .then((res) => {
+        if (res) {
+          mutate(endpoints.orders.get(order.id));
+          setShowModal(false); // Close the modal on success
+        }
+      });
+  };
 
   return (
     <div className="p-6">
-        <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-3">
-        <Link to={paths.admin.orders.root}>
-                <img src={chevronLeft} alt="Retour" width={36}/>
-            </Link>
-            <h2 className="text-xl font-bold text-n-1">Détails de la commande</h2>
+          <Link to={paths.admin.orders.root}>
+            <img src={chevronLeft} alt="Retour" width={36} />
+          </Link>
+          <h2 className="text-xl font-bold text-n-1">Détails de la commande</h2>
         </div>
         <button className="bg-n-5 hover:bg-n-4 text-white text-sm font-medium px-4 py-2 rounded shadow">
-            Facture
-          </button>
+          Facture
+        </button>
       </div>
-     
 
       <div className="grid grid-cols-1 lg:grid-cols-3 lg:space-x-6">
         {/* Vcards Table */}
@@ -73,20 +81,20 @@ export default function OrdersDetailsView() {
                 </tr>
               </thead>
               <tbody>
-                {vcards.map((card, index) => (
+                {vcards?.map((card, index) => (
                   <tr key={index} className="hover:bg-n-9">
                     <td className="px-4 py-2 border">{card.id}</td>
                     <td className="px-4 py-2 border">{card.type}</td>
                     <td className="px-4 py-2 border">{card.name}</td>
                     <td className="px-4 py-2 border">{card.status}</td>
                     <td className="px-4 py-2 border">
-                      <button>
+                      <button onClick={() => handleEditClick(card)}>
                         <img src={eye} />
                       </button>
                     </td>
                   </tr>
                 ))}
-                {vcards.length === 0 && (
+                {vcards?.length === 0 && (
                   <tr>
                     <td colSpan={4} className="text-center py-4 text-gray-500">
                       Aucune carte disponible.
@@ -97,7 +105,7 @@ export default function OrdersDetailsView() {
             </table>
             {/* Total Price */}
             <div className="mt-4 text-right font-medium">
-              Total: {totalPrice.toFixed(2)} DT
+              Total: {parseFloat(order?.total_price).toFixed(2)} DT
             </div>
           </div>
         </section>
@@ -108,10 +116,10 @@ export default function OrdersDetailsView() {
             <h2 className="text-lg font-medium mb-4">Détails de la commande</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
               <div className="flex flex-col">
-                <strong>Référence:</strong> {initialOrder.reference}
+                <strong>Référence:</strong> {order?.id}
               </div>
               <div className="flex flex-col">
-                <strong>Date:</strong> {initialOrder.date}
+                <strong>Date:</strong> {fDate(order?.created_at)}
               </div>
               <div className="flex flex-col">
                 <strong>Statut:</strong>
@@ -123,7 +131,7 @@ export default function OrdersDetailsView() {
                     { value: "Confirmée", label: "Confirmée" },
                     { value: "En attente", label: "En attente" },
                     { value: "Annulée", label: "Annulée" },
-                    { value: "Expédiée", label: "Expédiée" },
+                    { value: "processing", label: "Payé" },
                   ]}
                 />
               </div>
@@ -135,23 +143,34 @@ export default function OrdersDetailsView() {
             <h2 className="text-lg font-medium mb-4">Informations du client</h2>
             <div className="grid grid-cols-1 gap-4 text-sm">
               <div>
-                <strong>Nom:</strong> {client.name}
+                <strong>Nom:</strong>{" "}
+                {order?.user.first_name + " " + order?.user.last_name}
               </div>
               <div>
-                <strong>Email:</strong> {client.email}
+                <strong>Email:</strong> {order?.user.email}
               </div>
               <div>
-                <strong>Téléphone:</strong> {client.phone}
+                <strong>Téléphone:</strong> {order?.user.phone}
               </div>
-              {client.address && (
+              {order?.user.city && (
                 <div>
-                  <strong>Adresse:</strong> {client.address}
+                  <strong>Adresse:</strong> {order?.user.city},{" "}
+                  {order?.user.street_number}, {order?.user.zip},{" "}
+                  {order?.user.country}
                 </div>
               )}
             </div>
           </section>
         </div>
       </div>
+
+      <VkardEditModal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        data={editData}
+        setData={setEditData}
+        onSave={handleSave}
+      />
     </div>
   );
 }

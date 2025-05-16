@@ -11,14 +11,14 @@ export default function ClientsListRow({ client, deleteRow }) {
     <tr className="border-t hover:bg-n-2/20">
       <td className="px-4 py-3">
         <div className="flex flex-col">
-          <span className="font-medium text-n-1">{client.name}</span>
+          <span className="font-medium text-n-1">{client.first_name+' '+client.last_name}</span>
           <span className="text-sm text-gray-500">{client.email}</span>
         </div>
       </td>
       <td className="px-4 py-3 text-n-1">{client.phone}</td>
-      <td className="px-4 py-3 text-n-1">{client.entreprise}</td>
-      <td className="px-4 py-3 text-n-1">{client.address}</td>
-      <td className="px-4 py-3 text-center text-n-1">{client.commands}</td>
+      <td className="px-4 py-3 text-n-1">{client.company}</td>
+      <td className="px-4 py-3 text-n-1">{client.city+' '+client.street_number+' '+client.zip}</td>
+      <td className="px-4 py-3 text-center text-n-1">{client.orders.length}</td>
       <td className="px-4 py-3 text-center">
         <div className="flex justify-center gap-3">
           <Link to={paths.admin.clients.view(client.id)} className="text-blue-500 hover:text-blue-700">

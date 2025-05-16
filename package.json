@@ -25,7 +25,8 @@
     "react-router-dom": "^7.5.3",
     "react-social-icons": "^6.24.0",
     "react-toastify": "^11.0.5",
-    "scroll-lock": "^2.1.5"
+    "scroll-lock": "^2.1.5",
+    "swr": "^2.3.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

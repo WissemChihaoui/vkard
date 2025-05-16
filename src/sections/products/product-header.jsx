@@ -3,12 +3,27 @@ import Section from "../../components/section/Section";
 import ImageCarousel from "../../components/image-carousel/ImageCarousel";
 import Button from "../../components/button/Button";
 import { curve } from "../../assets";
+import { useCheckoutContext } from "../panier/context";
 
 export default function ProductHeader() {
+  const {onAddToCart} = useCheckoutContext()
   const [quantity, setQuantity] = useState(1);
 
   const increase = () => setQuantity((prev) => prev + 1);
   const decrease = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+
+  const handleAddToCart = () => {
+    const item = {
+      id: 2,
+      name: "Carte de visite NFC - VKARD Bamboo Custom",
+      image:
+        "https://vkard.io/wp-content/uploads/2021/12/carte-de-visite-nfc-VKARD-bois.jpg",
+      price: 70.0,
+      quantity: quantity,
+    };
+
+    onAddToCart(item); // ✅ Add to cart
+  };
   return (
     <Section className="overflow-hidden xl:pt-4" id="">
       <div className="container">
@@ -59,7 +74,7 @@ export default function ProductHeader() {
                     </button>
                   </div>
                 </div>
-                <Button>Ajouter au panier</Button>
+                <Button onClick={handleAddToCart}>Ajouter au panier</Button>
             </div>
 
             <p class="body-2 mb-6 text-n-3">L’époque des cartes de visite classiques est terminée. Voici VKARD, la carte de visite digitale et Sans-Contact pensée pour les entreprises modernes. Fabriquée en Bois naturel, dotée d’une fonction de mise à jour à distance, elle combine innovation technologique et responsabilité écologique.</p>

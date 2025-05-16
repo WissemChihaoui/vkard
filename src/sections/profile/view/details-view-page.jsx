@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 export default function DetailsViewPage() {
   const { user } = useAuthContext();
 
+  // console.log("user from details-view", user)
+
   const [formData, setFormData] = useState({
     email: user?.email || '',
     firstName: user?.first_name || '',

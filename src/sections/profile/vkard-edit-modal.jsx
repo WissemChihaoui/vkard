@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Input from "../../components/input/input";
 import Button from "../../components/button/Button";
 import Select from "../../components/select/select";
 import FileInput from "../../components/file-input/file-input";
+import { useAuthContext } from "../../auth/hooks";
 
 export default function VkardEditModal({
   show,
@@ -11,6 +12,33 @@ export default function VkardEditModal({
   setData,
   onSave,
 }) {
+  const { user } = useAuthContext();
+
+  const parseJSON = (value, fallback = {}) => {
+    try {
+      return typeof value === "string" ? JSON.parse(value) : value || fallback;
+    } catch {
+      return fallback;
+    }
+  };
+
+  const normalizedData = useMemo(() => ({
+    id: data?.id || "",
+    name: data?.name || "",
+    company: data?.company || "",
+    admin: `${user?.first_name || ""} ${user?.last_name || ""}`,
+    // cardType: data?.card_type || "",
+    description: data?.description || "",
+    picture: data?.picture || "",
+    contact: parseJSON(data?.contact, { email: "", phone: "" }),
+    socials: parseJSON(data?.socials, {
+      linkedin: "",
+      facebook: "",
+      instagram: "",
+      X: "",
+    }),
+    links: parseJSON(data?.links, [])
+  }), [data, user]);
 
   if (!show || !data) return null;
 
@@ -23,7 +51,10 @@ export default function VkardEditModal({
     const { name, value } = e.target;
     setData((prev) => ({
       ...prev,
-      contact: { ...prev.contact, [name]: value },
+      contact: JSON.stringify({
+        ...(parseJSON(prev.contact, {})),
+        [name]: value,
+      }),
     }));
   };
 
@@ -31,139 +62,82 @@ export default function VkardEditModal({
     const { name, value } = e.target;
     setData((prev) => ({
       ...prev,
-      socials: { ...prev.socials, [name]: value },
+      socials: JSON.stringify({
+        ...(parseJSON(prev.socials, {})),
+        [name]: value,
+      }),
     }));
   };
 
   const handleLinkChange = (index, field, value) => {
-    const newLinks = [...(data.links || [])];
-    newLinks[index] = { ...newLinks[index], [field]: value };
-    setData((prev) => ({ ...prev, links: newLinks }));
+    const links = parseJSON(data.links, []);
+    links[index] = { ...links[index], [field]: value };
+    setData((prev) => ({ ...prev, links: JSON.stringify(links) }));
   };
 
   const handleDeleteLink = (index) => {
-    const newLinks = [...(data.links || [])];
-    newLinks.splice(index, 1);
-    setData((prev) => ({ ...prev, links: newLinks }));
+    const links = parseJSON(data.links, []);
+    links.splice(index, 1);
+    setData((prev) => ({ ...prev, links: JSON.stringify(links) }));
   };
 
   const addNewLink = () => {
-    setData((prev) => ({
-      ...prev,
-      links: [...(prev.links || []), { title: "", url: "" }],
-    }));
+    const links = parseJSON(data.links, []);
+    links.push({ title: "", url: "" });
+    setData((prev) => ({ ...prev, links: JSON.stringify(links) }));
   };
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setData((prev) => ({ ...prev, picture: imageUrl }));
-    }
-  };
+ const handleImageUpload = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    setData((prev) => ({ ...prev, picture: file }));
+  }
+};
+
+  const handleSubmit = () => {
+  // const formData = new FormData();
+  console.log(data)
+
+  onSave(data); // This should be the function that calls the API
+};
 
   return (
     <div className="mt-[0!important] fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4">
       <div className="bg-n-7 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
         <div className="flex justify-between items-center p-4 border-b border-white/20">
           <h2 className="text-xl font-semibold">Modifier la carte</h2>
-          <button onClick={onClose} className="text-2xl leading-none">
-            &times;
-          </button>
+          <button onClick={onClose} className="text-2xl leading-none">&times;</button>
         </div>
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Basic Info */}
-            <div>
-              <label className="text-sm font-medium text-white">Nom</label>
-              <Input
-                name="name"
-                placeholder="Nom"
-                value={data.name}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-white">
-                Entreprise
-              </label>
-              <Input
-                name="company"
-                placeholder="Entreprise"
-                value={data.company}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-white">
-                Administrateur
-              </label>
-              <Input
-                name="admin"
-                placeholder="Administrateur"
-                value={data.admin}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <Select
-                label="Type de carte"
-                name="cardType"
-                value={data.cardType}
-                onChange={handleChange}
-                options={[
-                  { value: 1, label: "Standard" },
-                  { value: 2, label: "Premium" },
-                  { value: 3, label: "VIP" },
-                ]}
-              />
-            </div>
-            {/* Picture Upload */}
-            <div className="md:col-span-2">
-              <FileInput
-                label="Photo"
-                onChange={handleImageUpload}
-                preview={data.picture}
-              />
-            </div>
+            <Input name="name" placeholder="Nom" value={data.name || ""} onChange={handleChange} />
+            <Input name="company" placeholder="Entreprise" value={data.company || ""} onChange={handleChange} />
+            <Input name="admin" value={normalizedData.admin} readOnly disabled />
+            {/* <Select
+              label="Type de carte"
+              name="card_type"
+              value={data.card_type || ""}
+              onChange={handleChange}
+              options={[
+                { value: 1, label: "Standard" },
+                { value: 2, label: "Premium" },
+                { value: 3, label: "VIP" },
+              ]}
+            /> */}
+            <Input name="description" placeholder="Description" value={data.description || ""} onChange={handleChange} />
+            <FileInput label="Photo" onChange={handleImageUpload} preview={data.picture} />
+            <Input name="email" placeholder="Email" value={normalizedData.contact.email} onChange={handleNestedChange} />
+            <Input name="phone" placeholder="Téléphone" value={normalizedData.contact.phone} onChange={handleNestedChange} />
 
-            {/* Contact */}
-            <div>
-              <label className="text-sm font-medium text-white">Email</label>
-              <Input
-                name="email"
-                placeholder="Email"
-                value={data.contact?.email || ""}
-                onChange={handleNestedChange}
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-white">
-                Téléphone
-              </label>
-              <Input
-                name="phone"
-                placeholder="Téléphone"
-                value={data.contact?.phone || ""}
-                onChange={handleNestedChange}
-              />
-            </div>
-
-            {/* Socials */}
             <div className="md:col-span-2">
-              <h3 className="text-lg mt-4 font-semibold text-white">
-                Réseaux sociaux
-              </h3>
+              <h3 className="text-lg mt-4 font-semibold text-white">Réseaux sociaux</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                 {["linkedin", "facebook", "instagram", "X"].map((key) => (
                   <div key={key}>
-                    <label className="text-sm font-medium text-white capitalize">
-                      {key}
-                    </label>
                     <Input
                       name={key}
                       placeholder={`Lien ${key}`}
-                      value={data.socials?.[key] || ""}
+                      value={normalizedData.socials[key]}
                       onChange={handleSocialChange}
                     />
                   </div>
@@ -171,40 +145,22 @@ export default function VkardEditModal({
               </div>
             </div>
 
-            {/* Links */}
             <div className="md:col-span-2">
               <h3 className="text-lg mt-4 font-semibold text-white">Liens</h3>
-              {(data.links || []).map((link, index) => (
-                <div
-                  key={index}
-                  className="grid grid-cols-12 gap-2 items-center mb-2"
-                >
+              {normalizedData.links.map((link, index) => (
+                <div key={index} className="grid grid-cols-12 gap-2 items-center mb-2">
                   <div className="col-span-5">
                     <Input
-                      name={`link-title-${index}`}
-                      label="Titre"
                       placeholder="Titre"
                       value={link.title}
-                      onChange={(e) =>
-                        handleLinkChange(index, {
-                          ...link,
-                          title: e.target.value,
-                        })
-                      }
+                      onChange={(e) => handleLinkChange(index, "title", e.target.value)}
                     />
                   </div>
                   <div className="col-span-6">
                     <Input
-                      name={`link-url-${index}`}
-                      label="Lien"
                       placeholder="https://..."
                       value={link.url}
-                      onChange={(e) =>
-                        handleLinkChange(index, {
-                          ...link,
-                          url: e.target.value,
-                        })
-                      }
+                      onChange={(e) => handleLinkChange(index, "url", e.target.value)}
                     />
                   </div>
                   <div className="col-span-1 flex justify-end pt-6">
@@ -219,18 +175,14 @@ export default function VkardEditModal({
                   </div>
                 </div>
               ))}
-              <Button variant="secondary" onClick={addNewLink}>
-                Ajouter un lien
-              </Button>
+              <Button variant="secondary" onClick={addNewLink}>Ajouter un lien</Button>
             </div>
           </div>
         </div>
-        {/* Footer */}
+
         <div className="flex justify-end gap-2 p-4 border-t border-white/20">
-          <Button onClick={onClose} variant="secondary">
-            Annuler
-          </Button>
-          <Button onClick={onSave}>Enregistrer</Button>
+          <Button onClick={onClose} variant="secondary">Annuler</Button>
+          <Button onClick={handleSubmit}>Enregistrer</Button>
         </div>
       </div>
     </div>

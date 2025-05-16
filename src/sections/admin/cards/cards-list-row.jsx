@@ -21,8 +21,8 @@ export default function CardsListRow({ order, askDelete, onEdit }) {
   return (
     <tr className="border-b text-sm">
       <td className="px-4 py-3">{order.id}</td>
-      <td className="px-4 py-3">{order.client}</td>
-      <td className="px-4 py-3">{order.commande}</td>
+      <td className="px-4 py-3">{order.user.first_name} {order.user.last_name}</td>
+      <td className="px-4 py-3">{order.order_id}</td>
       <td className="px-4 py-3">{order.status}</td>
       <td className="px-4 py-3">{order.name}</td>
       <td className="px-4 py-3 text-center">

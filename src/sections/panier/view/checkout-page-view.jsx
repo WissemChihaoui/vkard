@@ -10,7 +10,9 @@ import { signInWithPassword } from "../../../actions/auth";
 import { toast } from "react-toastify";
 
 export default function CheckoutPageView() {
-  const { subtotal, tva, total, submitOrder } = useCheckoutContext();
+  const { subtotal, shipping, tva, total, submitOrder, livraison, onSelectLivraison } =
+    useCheckoutContext();
+
   const { user, checkUserSession } = useAuthContext();
   const [loginData, setLoginData] = useState({ email: "", password: "" });
 
@@ -88,8 +90,8 @@ export default function CheckoutPageView() {
               setLoginData={setLoginData}
               loginData={loginData}
             />
-            <form onSubmit={handleCheckout}
-             
+            <form
+              onSubmit={handleCheckout}
               className="bg-n-1/5 p-6 rounded-xl flex flex-col gap-4 h-min"
             >
               <h4 className="text-xl font-bold mb-4">Détails de facturation</h4>
@@ -170,35 +172,63 @@ export default function CheckoutPageView() {
                 onChange={handleChange}
               />
               <Button type="submit" className="mt-4 w-full">
-              Valider la commande
-            </Button>
+                Valider la commande
+              </Button>
             </form>
           </div>
 
           {/* Right - Summary + Payment */}
-          <div className="bg-n-1/5 border border-n-1/10 p-6 rounded-xl h-fit space-y-6">
-            <div>
-              <h4 className="text-xl font-bold mb-4">Résumé de la commande</h4>
-              <div className="flex justify-between mb-2">
-                <span>Total HT :</span>
-                <span>{subtotal.toFixed(2)} €</span>
-              </div>
-              <div className="flex justify-between mb-2">
-                <span>TVA (20%) :</span>
-                <span>{tva.toFixed(2)} €</span>
-              </div>
-              <div className="flex justify-between font-semibold text-lg border-t pt-4 mt-4">
-                <span>Total TTC :</span>
-                <span>{total.toFixed(2)} €</span>
+          <div className="space-y-6">
+            <div className="bg-n-1/5 border border-n-1/10 p-6 rounded-xl h-fit ">
+              <div>
+                <h4 className="text-xl font-bold mb-4">
+                  Résumé de la commande
+                </h4>
+                <div className="flex justify-between mb-2">
+                  <span>Total HT :</span>
+                  <span>{subtotal.toFixed(2)} €</span>
+                </div>
+                <div className="flex justify-between mb-2">
+                  <span>TVA (20%) :</span>
+                  <span>{tva.toFixed(2)} €</span>
+                </div>
+                <div className="flex justify-between mb-2">
+                  <span>Frais de livraison :</span>
+                  <span>{shipping.toFixed(2)} €</span>
+                </div>
+                <div className="flex justify-between font-semibold text-lg border-t pt-4 mt-4">
+                  <span>Total TTC :</span>
+                  <span>{total.toFixed(2)} €</span>
+                </div>
               </div>
             </div>
-            
-            {/* <CheckoutButton
-              cartItems={[
-                { name: "Carte VKARD", price: 5400, quantity: 1 },
-                { name: "Carte VKARD Bois", price: 5400, quantity: 1 },
-              ]}
-            /> */}
+            <div className="bg-n-1/5 border border-n-1/10 p-6 rounded-xl h-fit space-y-6">
+              <div>
+                <h4 className="text-xl font-bold mb-4">Livraison</h4>
+                <div className="space-y-2 mb-4">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="livraison"
+                      value="poste"
+                      checked={livraison === "poste"}
+                      onChange={() => onSelectLivraison("poste")}
+                    />
+                    <span>Poste-lettre : gratuite</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="livraison"
+                      value="xpress"
+                      checked={livraison === "xpress"}
+                      onChange={() => onSelectLivraison("xpress")}
+                    />
+                    <span>Xpresspost : 13.80 €</span>
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

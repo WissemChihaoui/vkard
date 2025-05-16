@@ -22,24 +22,7 @@ export const CheckoutConsumer = CheckoutContext.Consumer;
 const STORAGE_KEY = "vkard-cart";
 
 const initialState = {
-  items: [
-    {
-      id: 1,
-      name: "Carte de visite NFC - VKARD Bamboo Custom",
-      image:
-        "https://vkard.io/wp-content/uploads/2021/12/carte-de-visite-nfc-VKARD-bois.jpg",
-      price: 54.0,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "Carte de visite NFC - VKARD Bamboo Custom",
-      image:
-        "https://vkard.io/wp-content/uploads/2021/12/carte-de-visite-nfc-VKARD-bois.jpg",
-      price: 54.0,
-      quantity: 1,
-    },
-  ],
+  items: [],
   subtotal: 0,
   tva: 0,
   total: 0,
@@ -47,6 +30,7 @@ const initialState = {
   shipping: 0,
   billing: null,
   totalItems: 0,
+  livraison: 'poste',
 };
 
 // ----------------------------------------------------------------------
@@ -98,15 +82,6 @@ function Container({ children }) {
   const onAddToCart = useCallback(
     (newItem) => {
       const updatedItems = state.items.map((item) => {
-        if (item.id === newItem.id) {
-          const colorsAdded = [...item.colors, ...newItem.colors];
-
-          const colors = colorsAdded.filter(
-            (color, index) => colorsAdded.indexOf(color) === index
-          );
-
-          return { ...item, colors, quantity: item.quantity + 1 };
-        }
         return item;
       });
 
@@ -127,6 +102,14 @@ function Container({ children }) {
     },
     [setField, state.items]
   );
+
+  const onSelectLivraison = useCallback((method) => {
+  let shipping = 0;
+  if (method === "xpress") shipping = 13.8;
+
+  setField("livraison", method);
+  setField("shipping", shipping);
+}, [setField]);
 
   const onIncreaseQuantity = useCallback(
     (itemId) => {
@@ -214,7 +197,8 @@ function Container({ children }) {
       //
       activeStep,
 
-      submitOrder
+      submitOrder,
+onSelectLivraison,
     }),
     [
       state,
@@ -229,7 +213,8 @@ function Container({ children }) {
       onCreateBilling,
       onDecreaseQuantity,
       onIncreaseQuantity,
-      submitOrder
+      submitOrder,
+      onSelectLivraison
     ]
   );
 

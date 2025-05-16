@@ -114,8 +114,10 @@ import profileUser from "./profileIcons/user.svg";
 import speedgiLogo from "./speedgi-logo.svg";
 import speedgiSmallLogo from "./speedgi-small-logo.svg";
 import speedgiWhiteLogo from "./speedgi-white-logo.svg";
+import userIcon from "./user.png";
 
 export {
+  userIcon,
   profileDownloads,
   profileFav,
   profileLocation,

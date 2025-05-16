@@ -47,6 +47,7 @@ import {
   twitter,
   yourlogo,
 } from "../assets";
+import { paths } from "../routes/paths";
 
 export const navigation = [
   {
@@ -75,15 +76,9 @@ export const navigation = [
     url: "#roadmap",
   },
   {
-    id: "5",
-    title: "New account",
-    url: "#signup",
-    onlyMobile: true,
-  },
-  {
     id: "6",
     title: "Sign in",
-    url: "#login",
+    url: paths.auth.root,
     onlyMobile: true,
   },
 ];
@@ -364,6 +359,39 @@ export const socials = [
     title: "Facebook",
     iconUrl: facebook,
     url: "#",
+  },
+];
+
+export const ORDER_STATUS = [
+  {
+    value: 'pending',
+    label: 'À payer',
+    color: '#b45309',       // amber-700
+    bgColor: '#fef3c7',     // amber-100
+  },
+  {
+    value: 'paid',
+    label: 'Payé',
+    color: '#15803d',       // green-700
+    bgColor: '#dcfce7',     // green-100
+  },
+  {
+    value: 'unpaid',
+    label: 'Échoué',
+    color: '#b91c1c',       // red-700
+    bgColor: '#fee2e2',     // red-100
+  },
+  {
+    value: 'waiting',
+    label: 'À valider',
+    color: '#7c3aed',       // purple-700
+    bgColor: '#ede9fe',     // purple-100
+  },
+  {
+    value: 'delivered',
+    label: 'Livré',
+    color: '#0369a1',       // sky-700
+    bgColor: '#e0f2fe',     // sky-100
   },
 ];
 

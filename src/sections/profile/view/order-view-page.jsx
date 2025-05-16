@@ -3,24 +3,15 @@ import Button from '../../../components/button/Button';
 import Input from '../../../components/input/input';
 import OrderTableRow from '../order-table-row';
 import EmptyTable from '../../../components/empty-table/empty-table';
-import { getOrders } from '../../../actions/orders';
+import { useGetOrders } from '../../../actions/orders';
 
 export default function OrderViewPage() {
   const [search, setSearch] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-  const [orders, setOrders] = useState([]);
 
-  // Fetch orders on mount
-  useEffect(() => {
-    const fetchOrders = async () => {
-      const res = await getOrders();
-      if (res?.data?.data) {
-        setOrders(res.data.data); // Laravel response uses data.data
-      }
-    };
+ const { orders } = useGetOrders()
+ console.log(orders)
 
-    fetchOrders();
-  }, []);
 
   const handleSort = (key) => {
     setSortConfig((prev) => ({
@@ -69,6 +60,7 @@ export default function OrderViewPage() {
               { label: 'Commande', key: 'id' },
               { label: 'Date', key: 'created_at' },
               { label: 'État', key: 'status' },
+              { label: 'Livraison', key: 'shipping' },
               { label: 'Total', key: 'total_price' },
             ].map(({ label, key }) => (
               <th

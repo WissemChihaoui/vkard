@@ -6,12 +6,14 @@ import { AuthGuard, GuestGuard } from "../../auth/guard";
 // import Loader from "../../components/loader/loader";
 
 const ViewProduct = lazy(() => import("../../pages/main/products/view"));
+const ListProduct = lazy(() => import("../../pages/main/products/list"));
 const Panier = lazy(() => import("../../pages/main/panier/index"));
 const Checkout = lazy(() => import("../../pages/main/panier/checkout"));
 const OrderSuccess = lazy(() => import("../../pages/main/panier/order-success"));
 const Login = lazy(() => import("../../pages/auth/login"));
 const Profile = lazy(() => import("../../pages/profile/index"));
 const ProfileOrders = lazy(() => import("../../pages/profile/orders"));
+const ProfileViewOrder = lazy(() => import("../../pages/profile/viewOrder"));
 const ProfileDetails = lazy(() => import("../../pages/profile/details"));
 const ProfileCards = lazy(() => import("../../pages/profile/cards"));
 
@@ -33,7 +35,8 @@ export const mainRoutes = [
       </MainLayout>
     ),
     children: [
-      { path: "product", element: <ViewProduct /> },
+      { path: "product/:id", element: <ViewProduct /> },
+      { path: "product", element: <ListProduct /> },
       { path: "panier", element: <Panier /> },
       { path: "checkout", element: <Checkout /> },
       { path: "order-success", element: <OrderSuccess /> },
@@ -49,6 +52,7 @@ export const mainRoutes = [
         children: [
           { index: true, element: <Profile />},
           { path: 'orders', element: <ProfileOrders />},
+          { path: 'orders/:id', element: <ProfileViewOrder />},
           { path: 'edit-account', element: <ProfileDetails />},
           { path: 'cards', element: <ProfileCards />},
         ]

@@ -28,7 +28,7 @@ export const updateMe = async (data) => {
   try {
     const res = await putter(endpoints.users.updateMe, data);
 
-    await mutate(endpoints.auth.me);
+    mutate(endpoints.auth.me);
 
     return res;
   } catch (error) {

@@ -22,6 +22,6 @@ export default function Page() {
     }
   }, [order]);
 
-  console.log(order);
+  console.log("order here",order);
   return <OrdersDetailsView order={order?.data} vcards={vcards} />;
 }

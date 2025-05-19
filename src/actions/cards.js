@@ -72,7 +72,7 @@ export const submitCardData = async (data) => {
         Accept: "application/json",
       },
     });
-
+ mutate(endpoints.cards.getMine)
     return res.data;
   } catch (error) {
     console.error(
@@ -80,6 +80,7 @@ export const submitCardData = async (data) => {
       error.response?.data || error
     );
     throw error;
+
   }
 };
 
@@ -109,3 +110,34 @@ export const deleteCard = async (id) => {
     throw error;
   }
 };
+
+export const changeCardStatus = async (id, status) => {
+  try {
+    const res = await putter(endpoints.cards.changeStatus(id), { status });
+
+    mutate(endpoints.cards.all);
+    // mutate(endpoints.cards.)
+
+    return res;
+
+  } catch (error) {
+    console.error("❌ Erreur lors de la mise à jour du profil:", error);
+    throw error;
+  }
+};
+
+
+export function useGetProfile(id) {
+   const url = endpoints.cards.profile(id);
+
+  const { data } = useSWR(url, fetcher, swrOptions);
+
+  const memoizedValue = useMemo(
+    () => ({
+      profile: data?.profile || {},
+    }),
+    [data]
+  );
+
+  return memoizedValue;
+}

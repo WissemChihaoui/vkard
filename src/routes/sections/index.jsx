@@ -27,7 +27,7 @@ export function Router() {
             ),
           },
         {
-            path: '/user',
+            path: '/user/:id',
             /**
              * Skip home page
              * element: <Navigate to={CONFIG.auth.redirectPath} replace />,

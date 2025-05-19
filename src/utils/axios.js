@@ -87,19 +87,26 @@ export const endpoints = {
     getMine: '/api/orders',
     all: '/api/orders/all',
     get: (id) => `/api/order/${id}`,
-    delete: (id) => `/api/order/${id}`
+    delete: (id) => `/api/order/${id}`,
+    changeStatus: (id) => `/api/order/change-status/${id}`
   },
   users: {
     updateMe: '/api/update-me',
     changePassword: '/api/change-password',
     all: '/api/users',
     get:(id)=>`/api/users/${id}`,
-    delete: (id) => `/api/users/${id}`
+    delete: (id) => `/api/users/${id}`,
   },
   cards: {
+    profile: (id) => `/api/profile/${id}`,
     getMine: '/api/cards',
     submit: '/api/submit-card',
     all: '/api/cards/all',
-    delete: (id)=> `/api/cards/${id}`
+    delete: (id)=> `/api/cards/${id}`,
+    changeStatus: (id) => `/api/cards/change-status/${id}`
+  },
+  products: {
+    getAll: '/api/products',
+    get: (id)=> `/api/products/${id}`
   }
 };

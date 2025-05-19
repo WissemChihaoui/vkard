@@ -5,7 +5,9 @@ import Button from "../../components/button/Button";
 import { curve } from "../../assets";
 import { useCheckoutContext } from "../panier/context";
 
-export default function ProductHeader() {
+export default function ProductHeader({ card = {}}) {
+
+  console.log(card)
   const {onAddToCart} = useCheckoutContext()
   const [quantity, setQuantity] = useState(1);
 
@@ -14,11 +16,10 @@ export default function ProductHeader() {
 
   const handleAddToCart = () => {
     const item = {
-      id: 2,
-      name: "Carte de visite NFC - VKARD Bamboo Custom",
-      image:
-        "https://vkard.io/wp-content/uploads/2021/12/carte-de-visite-nfc-VKARD-bois.jpg",
-      price: 70.0,
+      id: card?.id,
+      name: card?.title,
+      image:card?.image,
+      price: parseFloat(card?.price),
       quantity: quantity,
     };
 
@@ -30,18 +31,17 @@ export default function ProductHeader() {
         <div className="gap-6 flex-col md:flex-row grid grid-cols-3">
           <ImageCarousel
             images={[
-              "https://vkard.io/wp-content/uploads/2021/12/carte-de-visite-nfc-VKARD-bois.jpg",
-              "https://vkard.io/wp-content/uploads/2021/12/bamboo.jpg",
-              "https://vkard.io/wp-content/uploads/2021/12/cartes-de-visite-NFC-en-Bois-VKARD.gif",
+              card?.image,
+              // ...card?.gallery
             ]}
           />
           <div className="col-span-2">
             <h2 className="h2 mb-2 md:mb-4">
-              Carte de visite NFC - VKARD Bamboo Custom
+              {card?.title}
             </h2>
             <h3 className="h3 font-bold mb-12 relative inline-block">
               <span className="relative inline-block">
-                54,00 € HT{" "}
+                {card.price} € HT{" "}
                 <img
                   src={curve}
                   className="absolute top-full left-0 w-full xl:-mt-2"
@@ -77,7 +77,7 @@ export default function ProductHeader() {
                 <Button onClick={handleAddToCart}>Ajouter au panier</Button>
             </div>
 
-            <p class="body-2 mb-6 text-n-3">L’époque des cartes de visite classiques est terminée. Voici VKARD, la carte de visite digitale et Sans-Contact pensée pour les entreprises modernes. Fabriquée en Bois naturel, dotée d’une fonction de mise à jour à distance, elle combine innovation technologique et responsabilité écologique.</p>
+            <p class="body-2 mb-6 text-n-3">{card ?.description}</p>
           </div>
         </div>
       </div>

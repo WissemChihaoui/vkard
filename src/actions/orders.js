@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { STORAGE_KEY } from "../constants";
-import fetcher, { deleter, endpoints, poster } from "../utils/axios";
+import fetcher, { deleter, endpoints, poster, putter } from "../utils/axios";
 import useSWR, { mutate } from "swr";
 import axios from "axios";
 import { useMemo } from "react";
@@ -72,13 +72,14 @@ export function useGetAllOrders() {
 export function useGetOrder(id) {
   const url = endpoints.orders.get(id);
 
-  const { data } = useSWR(url, fetcher, swrOptions);
+  const { data, isLoading } = useSWR(url, fetcher, swrOptions);
 
   const memoizedValue = useMemo(
     () => ({
       order: data|| [],
+      productsLoading: isLoading,
     }),
-    [data]
+    [data, isLoading]
   );
   return memoizedValue;
 }
@@ -90,6 +91,19 @@ export const deleteOrder = async (id) => {
     mutate(endpoints.orders.all)
     return res;
 
+  } catch (error) {
+    console.error("❌ Erreur lors de la mise à jour du profil:", error);
+    throw error;
+  }
+}
+
+export const changeStatus = async (id, status) => {
+  try {
+    const res = await putter(endpoints.orders.changeStatus(id), {status});
+
+    mutate(endpoints.orders.get(id))
+
+    return res
   } catch (error) {
     console.error("❌ Erreur lors de la mise à jour du profil:", error);
     throw error;

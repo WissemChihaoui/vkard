@@ -19,7 +19,7 @@ export default function VkardRow({ card, onEdit }) {
         />
         <div className="flex flex-col">
           <h3 className="font-semibold text-lg">{card.name || 'Nom pas gérer'}</h3>
-          <p className="text-sm text-gray-500">{card.job_title || 'entreprise pas défini'}</p>
+          <p className="text-sm text-gray-500">{card.company || 'entreprise pas défini'}</p>
         </div>
       </div>
       <p className="text-sm text-gray-600">Géré par: {user.first_name} {user.last_name}</p>

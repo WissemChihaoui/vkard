@@ -9,19 +9,8 @@ import { toast } from "react-toastify";
 import { submitCardData } from "../../../../actions/cards";
 import { mutate } from "swr";
 import { endpoints } from "../../../../utils/axios";
-
-const client = {
-  name: "John Doe",
-  email: "john@example.com",
-  phone: "+216 55 555 555",
-  address: "Ariana, Tunisie",
-};
-
-const initialOrder = {
-  reference: "#CMD1001",
-  date: "2025-05-07",
-  status: "Confirmée",
-};
+import { ORDER_STATUS } from "../../../../constants";
+import { changeStatus } from "../../../../actions/orders";
 
 export default function OrdersDetailsView({ order, vcards }) {
   const [orderStatus, setOrderStatus] = useState(order?.status);
@@ -29,7 +18,7 @@ export default function OrdersDetailsView({ order, vcards }) {
   const [editData, setEditData] = useState(null);
 
   const handleEditClick = (card) => {
-    console.log('edit card')
+    console.log("edit card");
     setEditData(card);
     setShowModal(true);
   };
@@ -49,6 +38,18 @@ export default function OrdersDetailsView({ order, vcards }) {
           setShowModal(false); // Close the modal on success
         }
       });
+  };
+
+  const handleChangeStatus = (e) => {
+    toast.promise(changeStatus(order.id, e.target.value), {
+      loading: "Changement du statut en cours...",
+      success: "Changement de statut avec succès !",
+      error: "Échec de changement du statut.",
+    });
+    
+        setOrderStatus(e.target.value)
+
+    ;
   };
 
   return (
@@ -126,13 +127,8 @@ export default function OrdersDetailsView({ order, vcards }) {
 
                 <Select
                   value={orderStatus}
-                  onChange={(e) => setOrderStatus(e.target.value)}
-                  options={[
-                    { value: "Confirmée", label: "Confirmée" },
-                    { value: "En attente", label: "En attente" },
-                    { value: "Annulée", label: "Annulée" },
-                    { value: "processing", label: "Payé" },
-                  ]}
+                  onChange={(e) => handleChangeStatus(e)}
+                  options={ORDER_STATUS}
                 />
               </div>
             </div>

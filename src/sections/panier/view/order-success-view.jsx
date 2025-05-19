@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import { useCheckoutContext } from '../context';
-import { mutate } from 'swr';
-import { endpoints } from '../../../utils/axios';
 
 export default function OrderSuccessView() {
   const { onUpdate } = useCheckoutContext();
 
   useEffect(() => {
     // Reset cart on success view load
-   onUpdate([{
+   onUpdate({
       
       items: [],
       total: 0,
@@ -18,7 +16,7 @@ export default function OrderSuccessView() {
       shipping: 0,
       billing: null,
       totalItems: 0,
-    }]);
+    });
   }, [onUpdate]);
 
   // mutate(endpoints.orders.all)

@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from '../../../components/button/Button';
 import Input from '../../../components/input/input';
 import OrderTableRow from '../order-table-row';
 import EmptyTable from '../../../components/empty-table/empty-table';
 import { useGetOrders } from '../../../actions/orders';
+import { useRouter } from '../../../routes/hooks';
+import { paths } from '../../../routes/paths';
 
 export default function OrderViewPage() {
   const [search, setSearch] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-
+  const router = useRouter()
  const { orders } = useGetOrders()
  console.log(orders)
 
@@ -47,7 +49,7 @@ export default function OrderViewPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <Button onClick={() => alert("Fonction d'ajout de commande ici.")}>
+          <Button onClick={() => router.push(paths.products.list)}>
             + Ajouter une commande
           </Button>
         </div>

@@ -3,7 +3,12 @@ import { eye, link, trash } from "../../../assets/admin";
 import { paths } from "../../../routes/paths";
 import { toast } from "react-toastify";
 
-export default function CardsListRow({ order, askDelete, onEdit }) {
+export default function CardsListRow({
+  order,
+  askDelete,
+  onEdit,
+  onStatusChange,
+}) {
   const linkUser = `${paths.user}/${order.id}`;
 
   const handleCopyLink = () => {
@@ -18,12 +23,32 @@ export default function CardsListRow({ order, askDelete, onEdit }) {
       });
   };
 
+  const toggleStatus = () => {
+    const newStatus = order.status === "actif" ? "inactif" : "actif";
+    onStatusChange(order.id, newStatus); // Send ID and new status to parent
+  };
+
   return (
     <tr className="border-b text-sm">
       <td className="px-4 py-3">{order.id}</td>
-      <td className="px-4 py-3">{order.user.first_name} {order.user.last_name}</td>
+      <td className="px-4 py-3">
+        {order.user.first_name} {order.user.last_name}
+      </td>
       <td className="px-4 py-3">{order.order_id}</td>
-      <td className="px-4 py-3">{order.status}</td>
+      <td className="px-4 py-3">
+        {/* Status Switch */}
+        <label className="inline-flex items-center cursor-pointer relative">
+          <input
+            type="checkbox"
+            className="sr-only peer"
+            checked={order.status === "actif"}
+            onChange={toggleStatus}
+          />
+          <div className="w-11 h-6 bg-gray-200 peer-checked:bg-blue-600 rounded-full transition-all duration-300"></div>
+          <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 peer-checked:translate-x-5"></div>
+        </label>
+      </td>
+
       <td className="px-4 py-3">{order.name}</td>
       <td className="px-4 py-3 text-center">
         <div className="flex gap-3">

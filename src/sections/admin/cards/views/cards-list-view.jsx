@@ -3,7 +3,7 @@ import ConfirmDeleteModal from "../../../../components/delete-confrim-popup/dele
 import DataTable from "../../../../components/datatables/data-table";
 import CardsListRow from "../cards-list-row";
 import VkardEditModal from "../../../profile/vkard-edit-modal";
-import { deleteCard, submitCardData, useGetAllCards } from "../../../../actions/cards";
+import { changeCardStatus, deleteCard, submitCardData, useGetAllCards } from "../../../../actions/cards";
 import { toast } from "react-toastify";
 import { mutate } from "swr";
 import { endpoints } from "../../../../utils/axios";
@@ -81,10 +81,20 @@ useEffect(()=> {
         });
       };
 
+  const handleStatusChange = async (id, newStatus) => {
+    toast.promise(
+      changeCardStatus(id, newStatus),
+      {
+        loading: 'Changement en cours',
+        success: 'Changement effectué avec success',
+        error: 'Changement echoué'
+      }
+    )
+  }
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-n-1">Liste des commandes</h2>
+        <h2 className="text-xl font-bold text-n-1">Liste des vcards</h2>
       </div>
       <DataTable
         columns={columns}
@@ -95,6 +105,7 @@ useEffect(()=> {
             order={order}
             askDelete={askDelete}
             onEdit={handleEditClick}
+            onStatusChange={handleStatusChange}
           />
         )}
       />

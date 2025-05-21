@@ -3,11 +3,18 @@ import ConfirmDeleteModal from "../../../../components/delete-confrim-popup/dele
 import DataTable from "../../../../components/datatables/data-table";
 import CardsListRow from "../cards-list-row";
 import VkardEditModal from "../../../profile/vkard-edit-modal";
-import { changeCardStatus, deleteCard, submitCardData, useGetAllCards } from "../../../../actions/cards";
+import {
+  changeCardStatus,
+  deleteCard,
+  submitCardData,
+  useGetAllCards,
+} from "../../../../actions/cards";
 import { toast } from "react-toastify";
 import { mutate } from "swr";
 import { endpoints } from "../../../../utils/axios";
-
+import { paths } from "../../../../routes/paths";
+import { QRCodeSVG } from "qrcode.react";
+import LinkQrModal from "../../../../components/linkQrModal/link-qr-modal";
 
 const columns = [
   { label: "Id #", key: "id", searchable: true, orderable: true },
@@ -25,19 +32,37 @@ const columns = [
 ];
 
 export default function CardsListView() {
-  const {cards}=useGetAllCards();
+  const { cards } = useGetAllCards();
+  const [tableData, setTableData] = useState([]);
 
-  const [orders, setOrders] = useState([]);
-  
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [orderToDelete, setOrderToDelete] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [linkModalOpen, setLinkModalOpen] = useState(false);
+  const [linkToShow, setLinkToShow] = useState(null);
 
+  const handleShowLink = (order) => {
+    const fullLink = `http://localhost:5173${paths.user(order.id)}`;
+    setLinkToShow(fullLink);
+    setLinkModalOpen(true);
+  };
 
-useEffect(()=> {
-  if (cards) setOrders(cards)
-}, [cards])
+  
+  // 🔄 Flatten cards to prepare for DataTable
+  useEffect(() => {
+    if (cards) {
+      const transformed = cards.map((card) => ({
+        id: card.id,
+        client: `${card.user?.first_name || ""} ${card.user?.last_name || ""}`,
+        commande: card.order_id,
+        status: card.status,
+        name: card.name,
+        original: card, // Keep full card object
+      }));
+      setTableData(transformed);
+    }
+  }, [cards]);
 
   const handleEditClick = (card) => {
     setEditData(card);
@@ -45,19 +70,16 @@ useEffect(()=> {
   };
 
   const handleSave = () => {
-    // console.log("Save logic here", editData);
-    // setShowModal(false);
-    toast.promise(
-        submitCardData(editData),
-        {
-          loading: "Enregistrement en cours...",
-          success: "Carte mise à jour avec succès !",
-          error: "Échec de la mise à jour de la carte.",
-        }
-      ).then((res) => {
+    toast
+      .promise(submitCardData(editData), {
+        loading: "Enregistrement en cours...",
+        success: "Carte mise à jour avec succès !",
+        error: "Échec de la mise à jour de la carte.",
+      })
+      .then((res) => {
         if (res) {
-          mutate(endpoints.cards.all)
-          setShowModal(false); // Close the modal on success
+          mutate(endpoints.cards.all);
+          setShowModal(false);
         }
       });
   };
@@ -68,29 +90,26 @@ useEffect(()=> {
   };
 
   const confirmDelete = async (id) => {
-        toast.promise(
-          deleteCard(orderToDelete.id),
-          {
-            loading: "Suppression en cours...",
-            success: "V-Card supprimé avec succès !",
-            error: "Échec de la suppression du v-card.",
-          }
-        ).then(() => {
-          setOrders((prev) => prev.filter((client) => client.id !== id));
-          setConfirmOpen(false)
-        });
-      };
+    toast
+      .promise(deleteCard(orderToDelete.id), {
+        loading: "Suppression en cours...",
+        success: "V-Card supprimé avec succès !",
+        error: "Échec de la suppression du v-card.",
+      })
+      .then(() => {
+        setTableData((prev) => prev.filter((client) => client.id !== id));
+        setConfirmOpen(false);
+      });
+  };
 
   const handleStatusChange = async (id, newStatus) => {
-    toast.promise(
-      changeCardStatus(id, newStatus),
-      {
-        loading: 'Changement en cours',
-        success: 'Changement effectué avec success',
-        error: 'Changement echoué'
-      }
-    )
-  }
+    toast.promise(changeCardStatus(id, newStatus), {
+      loading: "Changement en cours",
+      success: "Changement effectué avec succès",
+      error: "Changement échoué",
+    });
+  };
+
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
@@ -98,14 +117,15 @@ useEffect(()=> {
       </div>
       <DataTable
         columns={columns}
-        data={orders}
-        renderRow={(order) => (
+        data={tableData}
+        renderRow={(row) => (
           <CardsListRow
-            key={order.id}
-            order={order}
+            key={row.id}
+            order={row.original}
             askDelete={askDelete}
             onEdit={handleEditClick}
             onStatusChange={handleStatusChange}
+            onShowLink={handleShowLink} // 👈 Pass handler
           />
         )}
       />
@@ -113,7 +133,7 @@ useEffect(()=> {
       <ConfirmDeleteModal
         open={confirmOpen}
         onClose={() => setConfirmOpen(false)}
-        onConfirm={confirmDelete}
+        onConfirm={() => confirmDelete(orderToDelete.id)}
         title={orderToDelete?.id}
       />
 
@@ -123,6 +143,12 @@ useEffect(()=> {
         data={editData}
         setData={setEditData}
         onSave={handleSave}
+      />
+
+      <LinkQrModal
+        open={linkModalOpen}
+        link={linkToShow}
+        onClose={() => setLinkModalOpen(false)}
       />
     </div>
   );

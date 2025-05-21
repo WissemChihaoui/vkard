@@ -5,6 +5,8 @@ import Button from '../../components/button/Button';
 import Generating from '../../components/generating/generating';
 import { ScrollParallax } from 'react-just-parallax';
 import { BackgroundCircles, BottomLine, Gradient } from '../../components/UI/Hero';
+import { paths } from '../../routes/paths';
+import { enablePageScroll } from 'scroll-lock';
 
 
 export default function Hero() {
@@ -37,12 +39,14 @@ export default function Hero() {
           Le meilleur outil pour développer votre réseau, fabriqué en France 🇫🇷
           </p>
           <div className="flex gap-2 justify-center md:justify-start">
-              <Button href="/pricing" white>
+              <Button href={paths.products.list} white>
                 Commander {` `}
               </Button>
-              <Button href="/pricing">
-                Pour les équipes {` `}
-              </Button>
+              <a href="#roadmap" onClick={enablePageScroll()}>
+                <Button >
+                  Pour les équipes {` `}
+                </Button>
+              </a>
           </div>
               {/* <CardsScroll /> */}
         </div>

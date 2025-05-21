@@ -9,6 +9,7 @@ const ViewProduct = lazy(() => import("../../pages/main/products/view"));
 const ListProduct = lazy(() => import("../../pages/main/products/list"));
 const Panier = lazy(() => import("../../pages/main/panier/index"));
 const Checkout = lazy(() => import("../../pages/main/panier/checkout"));
+const Contact = lazy(() => import("../../pages/main/contact/index"));
 const OrderSuccess = lazy(() => import("../../pages/main/panier/order-success"));
 const Login = lazy(() => import("../../pages/auth/login"));
 const Profile = lazy(() => import("../../pages/profile/index"));
@@ -39,6 +40,7 @@ export const mainRoutes = [
       { path: "product", element: <ListProduct /> },
       { path: "panier", element: <Panier /> },
       { path: "checkout", element: <Checkout /> },
+      { path: "contact", element: <Contact /> },
       { path: "order-success", element: <OrderSuccess /> },
       { 
         path: "auth", 

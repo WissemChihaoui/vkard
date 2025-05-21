@@ -76,7 +76,7 @@ export function useGetOrder(id) {
 
   const memoizedValue = useMemo(
     () => ({
-      order: data|| [],
+      order: data || [],
       productsLoading: isLoading,
     }),
     [data, isLoading]
@@ -86,26 +86,26 @@ export function useGetOrder(id) {
 
 export const deleteOrder = async (id) => {
   try {
-    const res = await deleter(endpoints.orders.delete(id))
+    const res = await deleter(endpoints.orders.delete(id));
 
-    mutate(endpoints.orders.all)
+    mutate(endpoints.orders.all);
     return res;
-
   } catch (error) {
     console.error("❌ Erreur lors de la mise à jour du profil:", error);
     throw error;
   }
-}
+};
 
 export const changeStatus = async (id, status) => {
   try {
-    const res = await putter(endpoints.orders.changeStatus(id), {status});
+    const res = await putter(endpoints.orders.changeStatus(id), { status });
 
-    mutate(endpoints.orders.get(id))
+    mutate(endpoints.orders.all);
+    await mutate(endpoints.orders.get(id));
 
-    return res
+    return res;
   } catch (error) {
     console.error("❌ Erreur lors de la mise à jour du profil:", error);
     throw error;
   }
-}
+};

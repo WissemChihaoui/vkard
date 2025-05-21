@@ -1,6 +1,6 @@
 import React from "react";
 import Section from "../../components/section/Section";
-import { grid, vCardBlack } from "../../assets";
+import { grid, service0, service1, service2, vCardBlack } from "../../assets";
 import Heading from "../../components/heading/heading";
 import TagLine from "../../components/tagline/tagline";
 import { Gradient } from "../../components/UI/Roadmap";
@@ -31,17 +31,13 @@ export default function Services() {
                       Carte nfc
                     </h4>
                     <p className="body-2 text-n-4">
-                      Grâce à la technologie Near Field Communication (NFC) la
-                      carte connectée est reliée à votre profil digital en
-                      ligne. Ce profil est modifiable gratuitement et sans
-                      limite, sur une plateforme sécurisée et auditée
-                      régulièrement.
+                      Modernisez votre communication avec une carte NFC professionnelle. D’un simple geste, partagez vos coordonnées, site web, réseaux sociaux ou portfolio sur une plateforme sécurisée et fiable
                     </p>
                     <Button className="mt-4" white>
                       Commandez la vôtre
                     </Button>
                   </div>
-                  <img src={vCardBlack} className="max-w-80 mb-4 mx-auto" alt="" />
+                  <img src={service0} className="max-w-80 mb-4 mx-auto" alt="" />
                 </div>
               </div>
             </div>
@@ -59,15 +55,13 @@ export default function Services() {
               </div>
               <div className="relative z-1">
                 <div className="flex flex-col">
-                  <img src={vCardBlack} className="max-w-80 mb-4 mx-auto" alt="" />
+                  <img src={service1} className="max-w-80 mb-4 mx-auto" alt="" />
                   <div>
                     <h4 className="h4 mb-4">
-                      1 - Création site Web
+                      Création site Web
                     </h4>
                     <p className="body-2 text-n-4">
-                      Les VKARD fonctionnent avec iOS & Android sans avoir
-                      besoin d’application. Vous badgez en sans-contact ou
-                      scannez le Qr Code.
+                      Nous réalisons des sites sur mesure pensés pour booster votre visibilité en ligne. Un design soigné, une navigation fluide, et des performances au service de votre image
                     </p>
                   </div>
                 </div>
@@ -87,13 +81,11 @@ export default function Services() {
               </div>
               <div className="relative z-1">
                 <div className="flex flex-col">
-                  <img src={vCardBlack} className="max-w-80 mb-4 mx-auto" alt="" />
+                  <img src={service2} className="max-w-80 mb-4 mx-auto" alt="" />
                   <div>
-                    <h4 className="h4 mb-4">2 - Optimisation fiche google mybusiness</h4>
+                    <h4 className="h4 mb-4">Fiche google my business</h4>
                     <p className="body-2 text-n-4">
-                      Faites une impression mémorable en partageant vos infos de
-                      contact mais aussi prise de rendez-vous en ligne,
-                      brochures et landing pages.
+                      Améliorez votre visibilité locale grâce à une fiche GMB optimisée : description SEO, mots-clés locaux, photos pro, gestion des avis et services bien présentés. Attirez plus de clients près de chez vous et boostez votre référencement local.
                     </p>
                   </div>
                 </div>
@@ -113,12 +105,11 @@ export default function Services() {
               </div>
               <div className="relative z-1">
                 <div className="flex flex-col">
-                  <img src={vCardBlack} className="max-w-80 mb-4 mx-auto" alt="" />
+                  <img src={service1} className="max-w-80 mb-4 mx-auto" alt="" />
                   <div>
-                    <h4 className="h4 mb-4">3 - Optimisation seo</h4>
+                    <h4 className="h4 mb-4">Optimisation seo</h4>
                     <p className="body-2 text-n-4">
-                      Récupérez les coordonnées de vos prospects grâce à
-                      l’échange synchronisable avec votre suite CRM préférée.
+                      Boostez la visibilité de votre site web grâce à une stratégie SEO sur mesure. Analyse technique, optimisation des mots-clés, contenu, vitesse de chargement et netlinking : nous améliorons votre positionnement pour générer plus de trafic qualifié et durable.
                     </p>
                   </div>
                 </div>

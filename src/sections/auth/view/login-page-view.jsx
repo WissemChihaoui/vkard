@@ -28,7 +28,7 @@ export default function LoginPageView() {
             >
               S’enregistrer
             </Button>
-            <Link to={paths.admin.auth} className='text-sm text-center underline'>Se connecter en tant qu’admin</Link>
+            {/* <Link to={paths.admin.auth} className='text-sm text-center underline'>Se connecter en tant qu’admin</Link> */}
           </div>
         </div>
 

@@ -9,6 +9,9 @@ export const paths = {
     root: "/panier",
     checkout: "/checkout",
   },
+  contact: {
+    root: "/contact",
+  },
   auth: {
     root: "/auth",
   },

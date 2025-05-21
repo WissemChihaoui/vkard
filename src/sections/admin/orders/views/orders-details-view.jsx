@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "../../../../components/select/select";
 import { chevronLeft, eye } from "../../../../assets/admin";
 import { Link } from "react-router-dom";
@@ -13,9 +13,17 @@ import { ORDER_STATUS } from "../../../../constants";
 import { changeStatus } from "../../../../actions/orders";
 
 export default function OrdersDetailsView({ order, vcards }) {
-  const [orderStatus, setOrderStatus] = useState(order?.status);
+  const [orderStatus, setOrderStatus] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [editData, setEditData] = useState(null);
+
+  useEffect(()=> {
+    // console.log(orderStatus)
+    if(order){
+      setOrderStatus(order?.status)
+      console.log(order?.status)
+    }
+  }, [order])
 
   const handleEditClick = (card) => {
     console.log("edit card");
@@ -46,10 +54,6 @@ export default function OrdersDetailsView({ order, vcards }) {
       success: "Changement de statut avec succès !",
       error: "Échec de changement du statut.",
     });
-    
-        setOrderStatus(e.target.value)
-
-    ;
   };
 
   return (

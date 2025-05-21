@@ -24,7 +24,6 @@ export function useGetCards() {
 }
 
 export const submitCardData = async (data) => {
-  console.log("🚀 Raw data before conversion:", data);
   const url = endpoints.cards.submit;
   const formData = new FormData();
 
@@ -58,12 +57,6 @@ export const submitCardData = async (data) => {
 
   if (data.picture instanceof File) {
     formData.append("picture", data.picture);
-  }
-
-  // Log FormData content for debugging
-  console.log("📦 FormData being sent:");
-  for (let [key, value] of formData.entries()) {
-    console.log(`${key}:`, value);
   }
 
   try {

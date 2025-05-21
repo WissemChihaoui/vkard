@@ -1,5 +1,5 @@
 import useSWR, { mutate } from "swr";
-import { deleter, endpoints, fetcher, putter } from "../utils/axios";
+import axios, { deleter, endpoints, fetcher, putter } from "../utils/axios";
 import { useMemo } from "react";
 
 const swrOptions = {
@@ -85,6 +85,20 @@ export const deleteUser = async (id) => {
     return res;
   } catch (error) {
     console.error("❌ Erreur lors de la mise à jour du profil:", error);
+    throw error;
+  }
+};
+
+export const sendMessage = async (data) => {
+  const url = endpoints.users.sendMessage;
+
+  console.log(data);
+
+  try {
+    const response = await axios.post(url, data);
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de l'envoi du message :", error);
     throw error;
   }
 };

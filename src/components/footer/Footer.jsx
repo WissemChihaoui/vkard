@@ -2,6 +2,9 @@ import React from "react";
 import { socials } from "../../constants";
 import Section from "../section/Section";
 import Button from "../button/Button";
+import { Link } from "react-router-dom";
+import { paths } from "../../routes/paths";
+import { enablePageScroll } from "scroll-lock";
 
 const Footer = () => {
   return (
@@ -12,19 +15,18 @@ const Footer = () => {
           {/* Contact Info */}
           <div>
             <h4 className="font-semibold text-white mb-3">INFORMATIONS DE CONTACT</h4>
-            <p>Email : contact@votresite.com</p>
-            <p>Téléphone : +216 12 345 678</p>
-            <p>Adresse : 123 Rue de la Tech, Tunis</p>
+            <p>Email : contact@speedigi.ca</p>
+            <p>Téléphone : +1 (438) 836-9520</p>
+            <p>Adresse : 726 avenue du brabant app1 Québec</p>
           </div>
 
           {/* Useful Links */}
           <div>
             <h4 className="font-semibold text-white mb-3">LIENS UTILES</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-white transition">Accueil</a></li>
-              <li><a href="#" className="hover:text-white transition">Nos Services</a></li>
-              <li><a href="#" className="hover:text-white transition">À propos</a></li>
-              <li><a href="#" className="hover:text-white transition">Contact</a></li>
+              <li><Link to={paths.root}  onClick={enablePageScroll()} className="hover:text-white transition">Accueil</Link></li>
+              <li><Link to={paths.products.list} onClick={enablePageScroll()} className="hover:text-white transition">Nos Services</Link></li>
+              <li><Link to={paths.contact.root} onClick={enablePageScroll()} className="hover:text-white transition">Contact</Link></li>
             </ul>
           </div>
 

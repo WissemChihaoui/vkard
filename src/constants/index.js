@@ -51,30 +51,21 @@ import { paths } from "../routes/paths";
 
 export const navigation = [
   {
-    id: "0",
-    title: "Modèkes de VKARD",
-    url: "#features",
+    id: "1",
+    title: "Accueil",
+    url: paths.root
   },
   {
-    id: "1",
-    title: "Comment ça marche",
-    url: "#pricing",
+    id: "0",
+    title: "Modèles de VKARD",
+    url: paths.products.list,
   },
   {
     id: "2",
     title: "Démo & Devis",
-    url: "#how-to-use",
+    url: paths.contact.root,
   },
-  {
-    id: "3",
-    title: "Presse",
-    url: "#roadmap",
-  },
-  {
-    id: "4",
-    title: "Entreprise",
-    url: "#roadmap",
-  },
+  
   {
     id: "6",
     title: "Sign in",

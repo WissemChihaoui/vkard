@@ -4,7 +4,7 @@ import { CONFIG } from '../config-global';
 
 // ----------------------------------------------------------------------
 
-const axiosInstance = axios.create({ baseURL: CONFIG.serverUrl || "http://127.0.0.1:8000" });
+const axiosInstance = axios.create({ baseURL: CONFIG.serverUrl || "https://backend.speedigi.ca" });
 
 axiosInstance.interceptors.response.use(
   (response) => response,

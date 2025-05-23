@@ -39,7 +39,7 @@ export default function Hero() {
             Le meilleur outil pour développer votre réseau, fabriqué en Canada
             🇨🇦
           </p>
-          <div className="flex gap-2 justify-center md:justify-between">
+          <div className="flex gap-2 justify-center md:justify-end">
             <Button href={paths.products.list} white>
               Commander {` `}
             </Button>

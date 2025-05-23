@@ -22,7 +22,7 @@ export default function ProductHeader({ card = {}}) {
       price: parseFloat(card?.price),
       quantity: quantity,
     };
-
+    
     onAddToCart(item); // ✅ Add to cart
   };
   return (

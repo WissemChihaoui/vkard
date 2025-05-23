@@ -3,15 +3,27 @@ import Section from "../../../components/section/Section";
 import Input from "../../../components/input/input";
 import Button from "../../../components/button/Button";
 import { useCheckoutContext } from "../context";
-import CheckoutButton from "../../../components/checkoutButton";
 import { useAuthContext } from "../../../auth/hooks";
 import LoginSection from "../login-section";
 import { signInWithPassword } from "../../../actions/auth";
 import { toast } from "react-toastify";
+import { useRouter } from "../../../routes/hooks";
+import { paths } from "../../../routes/paths";
 
 export default function CheckoutPageView() {
-  const { subtotal, shipping, tva, total, submitOrder, livraison, onSelectLivraison } =
+  const router = useRouter();
+
+
+  const { subtotal, shipping, tva, total, submitOrder, livraison, onSelectLivraison, items } =
     useCheckoutContext();
+  console.log(items)
+    useEffect(()=>{
+      
+      if(items && items.length === 0) {
+        toast.error('Votre panier est vide')
+        router.push(paths.products.list)
+      }
+    },[items, router])
 
   const { user, checkUserSession } = useAuthContext();
   const [loginData, setLoginData] = useState({ email: "", password: "" });

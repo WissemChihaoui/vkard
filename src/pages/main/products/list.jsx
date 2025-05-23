@@ -1,15 +1,27 @@
-import React from 'react'
-import ProductListView from '../../../sections/products/view/product-list-view'
-import { useGetProducts } from '../../../actions/products'
+import React from "react";
+import ProductListView from "../../../sections/products/view/product-list-view";
+import { useGetProducts } from "../../../actions/products";
+import { Helmet } from "react-helmet-async";
 
 export default function Page() {
-    const {products} = useGetProducts()
+  const { products } = useGetProducts();
 
-    // const [data, setData] = useS:
+  // const [data, setData] = useS:
 
-    console.log(products)
+  console.log(products);
 
   return (
-    <ProductListView cards={products}/>
-  )
+    <>
+      <Helmet>
+        <title>Carte de visite connectée NFC - 100 % Personnalisable</title>
+        <meta
+          name="description"
+          content="Partagez vos coordonnées en un seul geste avec notre carte de visite NFC 100 % personnalisable. Moderne, pratique et écologique, elle reflète parfaitement votre image professionnelle."
+        />
+        <link rel="canonical" href="https://speedigi.ca/product" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+      <ProductListView cards={products} />
+    </>
+  );
 }

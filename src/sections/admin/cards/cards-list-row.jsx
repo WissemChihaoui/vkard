@@ -1,7 +1,5 @@
 import React from "react";
 import { eye, link, trash } from "../../../assets/admin";
-// import { paths } from "../../../routes/paths";
-// import { toast } from "react-toastify";
 
 export default function CardsListRow({
   order,
@@ -10,8 +8,6 @@ export default function CardsListRow({
   onStatusChange,
   onShowLink, // 👈 New prop
 }) {
-  // const linkUser = `${paths.user}/${order.id}`;
-
   const toggleStatus = () => {
     const newStatus = order.status === "actif" ? "inactif" : "actif";
     onStatusChange(order.id, newStatus); // Send ID and new status to parent

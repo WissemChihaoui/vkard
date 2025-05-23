@@ -1,9 +1,7 @@
 import React, { useMemo } from "react";
 import Input from "../../components/input/input";
 import Button from "../../components/button/Button";
-import Select from "../../components/select/select";
 import FileInput from "../../components/file-input/file-input";
-import { useAuthContext } from "../../auth/hooks";
 
 export default function VkardEditModal({
   show,
@@ -12,8 +10,7 @@ export default function VkardEditModal({
   setData,
   onSave,
 }) {
-  const { user } = useAuthContext();
-
+  console.log(data)
   const parseJSON = (value, fallback = {}) => {
     try {
       return typeof value === "string" ? JSON.parse(value) : value || fallback;
@@ -26,8 +23,7 @@ export default function VkardEditModal({
     id: data?.id || "",
     name: data?.name || "",
     company: data?.company || "",
-    admin: `${user?.first_name || ""} ${user?.last_name || ""}`,
-    // cardType: data?.card_type || "",
+    admin: `${data?.user?.first_name || ""} ${data?.user?.last_name || ""}`,
     description: data?.description || "",
     picture: data?.picture || "",
     contact: parseJSON(data?.contact, { email: "", phone: "" }),
@@ -38,7 +34,7 @@ export default function VkardEditModal({
       X: "",
     }),
     links: parseJSON(data?.links, [])
-  }), [data, user]);
+  }), [data]);
 
   if (!show || !data) return null;
 
@@ -95,9 +91,6 @@ export default function VkardEditModal({
 };
 
   const handleSubmit = () => {
-  // const formData = new FormData();
-  console.log(data)
-
   onSave(data); // This should be the function that calls the API
 };
 
@@ -110,24 +103,16 @@ export default function VkardEditModal({
         </div>
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input name="name" placeholder="Nom" value={data.name || ""} onChange={handleChange} />
+            <Input name="name" placeholder="Nom *" value={data.name || ""} onChange={handleChange} />
             <Input name="company" placeholder="Entreprise" value={data.company || ""} onChange={handleChange} />
             <Input name="admin" value={normalizedData.admin} readOnly disabled />
-            {/* <Select
-              label="Type de carte"
-              name="card_type"
-              value={data.card_type || ""}
-              onChange={handleChange}
-              options={[
-                { value: 1, label: "Standard" },
-                { value: 2, label: "Premium" },
-                { value: 3, label: "VIP" },
-              ]}
-            /> */}
+            
             <Input name="description" placeholder="Description" value={data.description || ""} onChange={handleChange} />
-            <FileInput label="Photo" onChange={handleImageUpload} preview={data.picture} />
-            <Input name="email" placeholder="Email" value={normalizedData.contact.email} onChange={handleNestedChange} />
-            <Input name="phone" placeholder="Téléphone" value={normalizedData.contact.phone} onChange={handleNestedChange} />
+            <div className="col-span-2">
+              <FileInput label="Photo" onChange={handleImageUpload} preview={data.picture} />
+            </div>
+            <Input name="email" placeholder="Email *" value={normalizedData.contact.email} onChange={handleNestedChange} />
+            <Input name="phone" placeholder="Téléphone *" value={normalizedData.contact.phone} onChange={handleNestedChange} />
 
             <div className="md:col-span-2">
               <h3 className="text-lg mt-4 font-semibold text-white">Réseaux sociaux</h3>

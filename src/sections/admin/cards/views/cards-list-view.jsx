@@ -33,6 +33,8 @@ const columns = [
 
 export default function CardsListView() {
   const { cards } = useGetAllCards();
+    console.log(cards)
+
   const [tableData, setTableData] = useState([]);
 
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -42,30 +44,47 @@ export default function CardsListView() {
   const [linkModalOpen, setLinkModalOpen] = useState(false);
   const [linkToShow, setLinkToShow] = useState(null);
 
-  const handleShowLink = (order) => {
-    const fullLink = `http://localhost:5173${paths.user(order.id)}`;
-    setLinkToShow(fullLink);
-    setLinkModalOpen(true);
-  };
+ const handleShowLink = (order) => {
+  const fullLink = `${window.location.origin}${paths.user(order.id)}`;
+  setLinkToShow(fullLink);
+  setLinkModalOpen(true);
+};
 
-  
+  function parseJSON(value, fallback) {
+  try {
+    return JSON.parse(value || "") || fallback;
+  } catch {
+    return fallback;
+  }
+}
   // 🔄 Flatten cards to prepare for DataTable
   useEffect(() => {
-    if (cards) {
-      const transformed = cards.map((card) => ({
-        id: card.id,
-        client: `${card.user?.first_name || ""} ${card.user?.last_name || ""}`,
-        commande: card.order_id,
-        status: card.status,
-        name: card.name,
-        original: card, // Keep full card object
-      }));
-      setTableData(transformed);
-    }
-  }, [cards]);
+  if (cards) {
+    const transformed = cards.map((card) => ({
+      id: card.id || "",
+      name: card.name || "",
+      company: card.company || "",
+      admin: `${card.user?.first_name || ""} ${card.user?.last_name || ""}`,
+      description: card.description || "",
+      picture: card.picture || "",
+      contact: parseJSON(card.contact, { email: "", phone: "" }),
+      socials: parseJSON(card.socials, {
+        linkedin: "",
+        facebook: "",
+        instagram: "",
+        X: "",
+      }),
+      links: parseJSON(card.links, []),
+      original: card, // Keep full card object
+    }));
+
+    setTableData(transformed);
+  }
+}, [cards]);
+
 
   const handleEditClick = (card) => {
-    setEditData(card);
+    setEditData(...cards.filter((row) => row.id === card.id));
     setShowModal(true);
   };
 

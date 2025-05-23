@@ -103,7 +103,7 @@ END:VCARD`;
   <h3 className="text-center text-[#dcdfff] text-lg mb-1">Réseaux sociaux</h3>
   <div className="flex justify-center gap-2 flex-wrap px-12">
     {Object.entries(socials || {}).map(([key, url], index) => (
-      <Link
+      url && <Link
         to={url}
         key={index}
         target="_blank"
@@ -155,7 +155,7 @@ END:VCARD`;
         </a>
 
         {/* Hardcoded Address */}
-        <div className="flex items-center gap-4 p-4 border rounded-xl shadow-md hover:shadow-lg transition">
+        {/* <div className="flex items-center gap-4 p-4 border rounded-xl shadow-md hover:shadow-lg transition">
           <div className="bg-yellow-100 text-yellow-600 w-10 h-10 flex items-center justify-center rounded-full">
             <MdLocationOn className="text-2xl text-red-600" />
           </div>
@@ -165,7 +165,7 @@ END:VCARD`;
               91 Rue de l'Alzette, 4011 Esch-sur-Alzette
             </span>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="p-4">
   <h3 className="text-center text-[#dcdfff] text-lg mb-1">Liens utiles</h3>

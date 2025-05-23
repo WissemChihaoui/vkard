@@ -12,7 +12,6 @@ export default function Page() {
 
   return (
     <>
-      <Helmet>
         <title>Carte de visite connectée NFC - 100 % Personnalisable</title>
         <meta
           name="description"
@@ -20,7 +19,6 @@ export default function Page() {
         />
         <link rel="canonical" href="https://speedigi.ca/product" />
         <meta name="robots" content="index, follow" />
-      </Helmet>
       <ProductListView cards={products} />
     </>
   );

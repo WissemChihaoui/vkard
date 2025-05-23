@@ -5,7 +5,6 @@ import { Helmet } from "react-helmet-async";
 export default function Page() {
   return (
     <>
-      <Helmet>
         <title>Contactez Speedigi - Votre Agence NFC & SEO</title>
         <meta
           name="description"
@@ -13,7 +12,6 @@ export default function Page() {
         />
         <link rel="canonical" href="https://speedigi.ca/contact" />
         <meta name="robots" content="index, follow" />
-      </Helmet>
       <ContactFormView />
     </>
   );

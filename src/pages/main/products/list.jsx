@@ -1,7 +1,6 @@
 import React from "react";
 import ProductListView from "../../../sections/products/view/product-list-view";
 import { useGetProducts } from "../../../actions/products";
-import { Helmet } from "react-helmet-async";
 
 export default function Page() {
   const { products } = useGetProducts();

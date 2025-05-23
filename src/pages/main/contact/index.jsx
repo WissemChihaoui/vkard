@@ -1,6 +1,5 @@
 import React from "react";
 import ContactFormView from "../../../sections/contact/views/contact-form-view";
-import { Helmet } from "react-helmet-async";
 
 export default function Page() {
   return (

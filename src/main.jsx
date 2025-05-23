@@ -7,12 +7,11 @@ import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <HelmetProvider>
+    
       <BrowserRouter>
         <Suspense>
           <App />
         </Suspense>
       </BrowserRouter>
-    </HelmetProvider>
   </StrictMode>
 );

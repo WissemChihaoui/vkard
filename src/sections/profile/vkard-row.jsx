@@ -6,10 +6,15 @@ import { CONFIG } from "../../config-global";
 import { link } from "../../assets/admin";
 
 export default function VkardRow({ card, onEdit, onShowLink }) {
+  console.log("CARD DDD :", card)
+
+  const hasImage = card.order_item.card.has_image
+
   const { user } = useAuthContext();
-  const image = card.picture
+
+  const image = hasImage && card.picture
     ? `${CONFIG.serverUrl}/storage/${card.picture}`
-    : userIcon;
+    : `${card.order_item.card.image}`;
   console.log(image);
   return (
     <>

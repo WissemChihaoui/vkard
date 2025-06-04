@@ -33,7 +33,7 @@ const columns = [
 
 export default function CardsListView() {
   const { cards } = useGetAllCards();
-    console.log(cards)
+    console.log("here",cards)
 
   const [tableData, setTableData] = useState([]);
 

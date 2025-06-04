@@ -11,11 +11,13 @@ const columns = [
   { label: "Titre", key: "title", searchable: true },
   { label: "Description", key: "description", searchable: true },
   { label: "Prix", key: "price" },
+  { label: "Avec Logo", key: "has_image" },
   { label: "Actions", key: "actions" },
 ];
 
 export default function EditCardListView() {
   const { products } = useGetProducts();
+  console.log(products)
   const [tableData, setTableData] = useState([]);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [orderToDelete, setOrderToDelete] = useState(null);

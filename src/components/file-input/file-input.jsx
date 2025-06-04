@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CONFIG } from "../../config-global";
 
-const FileInput = ({ label, onChange, preview }) => {
+const FileInput = ({ label, onChange, preview, enabled = 1 }) => {
   const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
@@ -28,6 +28,8 @@ const FileInput = ({ label, onChange, preview }) => {
         accept="image/*"
         onChange={onChange}
         className="px-2 py-1 rounded-t-lg border-0 outline-none bg-transparent text-white"
+        readOnly={!enabled}
+        disabled={!enabled}
       />
       {previewUrl && (
         <img

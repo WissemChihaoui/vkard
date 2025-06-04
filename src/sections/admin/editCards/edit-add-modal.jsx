@@ -7,12 +7,13 @@ export default function EditAddModal({ open, onClose, onSubmit, initialData }) {
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
-
+  const [hasImage, setHasImage] = useState(true); // New state
   useEffect(() => {
     if (initialData) {
       setTitle(initialData.title || "");
       setDescription(initialData.description || "");
       setPrice(initialData.price || "");
+      setHasImage(initialData.has_image ?? true); // populate has_image
       if (initialData.image) setPreview(initialData.image);
     } else {
       setTitle("");
@@ -20,6 +21,7 @@ export default function EditAddModal({ open, onClose, onSubmit, initialData }) {
       setPrice("");
       setImage(null);
       setPreview(null);
+      setHasImage(true);
     }
   }, [initialData]);
 
@@ -38,6 +40,7 @@ export default function EditAddModal({ open, onClose, onSubmit, initialData }) {
     data.append("title", title);
     data.append("description", description);
     data.append("price", price);
+    data.append("has_image", hasImage ? "1" : "0"); // Include new field
     if (image) data.append("image", image);
     if (initialData?.id) data.append("id", initialData.id);
     onSubmit(data);
@@ -61,7 +64,6 @@ export default function EditAddModal({ open, onClose, onSubmit, initialData }) {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                // className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
               />
             </div>
 
@@ -69,7 +71,6 @@ export default function EditAddModal({ open, onClose, onSubmit, initialData }) {
               <label className="block mb-1 text-sm  text-gray-300">Description</label>
               <textarea
                 rows={3}
-                
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="px-2 w-full py-1 rounded-t-lg border-0 outline-none bg-transparent"
@@ -84,6 +85,20 @@ export default function EditAddModal({ open, onClose, onSubmit, initialData }) {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
+            </div>
+
+            {/* New checkbox field */}
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="hasImage"
+                checked={hasImage}
+                onChange={() => setHasImage(!hasImage)}
+                className="accent-blue-600"
+              />
+              <label htmlFor="hasImage" className="text-sm text-gray-300">
+                Cette carte doit-elle contenir une image ou logo ?
+              </label>
             </div>
           </div>
 

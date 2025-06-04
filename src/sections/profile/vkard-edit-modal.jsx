@@ -10,7 +10,7 @@ export default function VkardEditModal({
   setData,
   onSave,
 }) {
-  console.log(data)
+  console.log("CArte to edit",data)
   const parseJSON = (value, fallback = {}) => {
     try {
       return typeof value === "string" ? JSON.parse(value) : value || fallback;
@@ -19,11 +19,13 @@ export default function VkardEditModal({
     }
   };
 
+  const hasImage = data?.order_item?.card?.has_image
+
   const normalizedData = useMemo(() => ({
     id: data?.id || "",
     name: data?.name || "",
     company: data?.company || "",
-    admin: `${data?.user?.first_name || ""} ${data?.user?.last_name || ""}`,
+    address: data?.address || "",
     description: data?.description || "",
     picture: data?.picture || "",
     contact: parseJSON(data?.contact, { email: "", phone: "" }),
@@ -105,11 +107,11 @@ export default function VkardEditModal({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input name="name" placeholder="Nom *" value={data.name || ""} onChange={handleChange} />
             <Input name="company" placeholder="Entreprise" value={data.company || ""} onChange={handleChange} />
-            <Input name="admin" value={normalizedData.admin} readOnly disabled />
+            <Input name="address" placeholder="Adresse" value={data.address}  onChange={handleChange}/>
             
             <Input name="description" placeholder="Description" value={data.description || ""} onChange={handleChange} />
             <div className="col-span-2">
-              <FileInput label="Photo" onChange={handleImageUpload} preview={data.picture} />
+              <FileInput label="Logo *" onChange={handleImageUpload} preview={hasImage ? data.picture : data.order_item.card.image} enabled={hasImage}/>
             </div>
             <Input name="email" placeholder="Email *" value={normalizedData.contact.email} onChange={handleNestedChange} />
             <Input name="phone" placeholder="Téléphone *" value={normalizedData.contact.phone} onChange={handleNestedChange} />

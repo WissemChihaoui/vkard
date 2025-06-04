@@ -37,6 +37,7 @@ export const submitCardData = async (data) => {
   formData.append("_method", "put");
   formData.append("id", data.id);
   formData.append("name", data.name);
+  formData.append("address", data.address);
   formData.append("company", data.company || "");
   formData.append("description", data.description || "");
 

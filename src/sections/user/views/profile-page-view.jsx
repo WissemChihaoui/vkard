@@ -9,7 +9,7 @@ import { paths } from "../../../routes/paths";
 
 export default function ProfilePageView({ profile }) {
   const route = useRouter()
-
+const hasImage = profile?.order_item?.card?.has_image
   console.log(profile)
   // Parse JSON fields
   const contact =
@@ -38,7 +38,7 @@ FN:${fullName}
 ORG:${profile?.company || ""}
 TEL;TYPE=CELL:${contact?.phone || ""}
 EMAIL;TYPE=INTERNET:${contact?.email || ""}
-ADR;TYPE=WORK:;;91 Rue de l'Alzette;Esch-sur-Alzette;;4011;Luxembourg
+ADR;TYPE=WORK:;;${profile?.address}
 END:VCARD`;
 
     const blob = new Blob([vcfData], { type: "text/vcard;charset=utf-8" });
@@ -54,9 +54,9 @@ END:VCARD`;
   };
 
   // Profile image
-  const image = profile?.picture
-    ? `${CONFIG.serverUrl}/storage/${profile?.picture}`
-    : userIcon;
+ const image = hasImage && profile.picture
+     ? `${CONFIG.serverUrl}/storage/${profile.picture}`
+     : `${profile.order_item?.card?.image}`;
 
   if (profile.status === 'inactif') route.push(paths.root);
 

@@ -53,13 +53,13 @@ export default function Services() {
                       pratique et éco-responsable.
                     </p>
 
-                    <p className="body-2 text-n-3 font-bold">
+                    <p className="body-2 text-n-3 mb-2 font-bold">
                       Adoptez dès aujourd’hui la carte de visite du futur.
                     </p>
                     <span className="text-sm text-n-4">Abonnement Gratuit Pour deux 2 ans (*Prix mensuel 4.99 CA)</span>
                     <div className="flex justify-between items-center">
                       <span className="text-4xl font-bold">70 $ CA</span>
-<Button className="mt-4" white href={paths.products.list}>
+<Button className="mt-1" white href={paths.products.list}>
                       Commandez la vôtre
                     </Button>
                     </div>

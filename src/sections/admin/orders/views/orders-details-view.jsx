@@ -1,26 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Select from "../../../../components/select/select";
-import { chevronLeft, eye } from "../../../../assets/admin";
+import { chevronLeft } from "../../../../assets/admin";
 import { Link } from "react-router-dom";
 import { paths } from "../../../../routes/paths";
 import { fDate } from "../../../../utils/format-time";
-import VkardEditModal from "../../../profile/vkard-edit-modal";
 import { toast } from "react-toastify";
-import { submitCardData } from "../../../../actions/cards";
-import { mutate } from "swr";
-import { endpoints } from "../../../../utils/axios";
 import { ORDER_STATUS } from "../../../../constants";
 import { changeStatus } from "../../../../actions/orders";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
-import { CONFIG } from "../../../../config-global";
 import InvoiceDownloadButton from "../../../../components/invoice-download/invoice-download";
 
 export default function OrdersDetailsView({ order, vcards }) {
   const [orderStatus, setOrderStatus] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [editData, setEditData] = useState(null);
-
   console.log(order);
 
   useEffect(() => {
@@ -31,29 +21,6 @@ export default function OrdersDetailsView({ order, vcards }) {
     }
   }, [order]);
 
-  const handleEditClick = (card) => {
-    console.log("edit card");
-    setEditData(card);
-    setShowModal(true);
-  };
-
-  const handleSave = () => {
-    console.log("Save logic here", editData);
-    setShowModal(false);
-    toast
-      .promise(submitCardData(editData), {
-        loading: "Enregistrement en cours...",
-        success: "Carte mise à jour avec succès !",
-        error: "Échec de la mise à jour de la carte.",
-      })
-      .then((res) => {
-        if (res) {
-          mutate(endpoints.orders.get(order.id));
-          setShowModal(false); // Close the modal on success
-        }
-      });
-  };
-
   const handleChangeStatus = (e) => {
     toast.promise(changeStatus(order.id, e.target.value), {
       loading: "Changement du statut en cours...",
@@ -61,8 +28,6 @@ export default function OrdersDetailsView({ order, vcards }) {
       error: "Échec de changement du statut.",
     });
   };
-
-
 
   return (
     <div className="p-6">
@@ -131,7 +96,6 @@ export default function OrdersDetailsView({ order, vcards }) {
                   <th className="px-4 py-2 border">Type de cart</th>
                   <th className="px-4 py-2 border">Nom</th>
                   <th className="px-4 py-2 border">Statut</th>
-                  <th className="px-4 py-2 border">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -142,11 +106,7 @@ export default function OrdersDetailsView({ order, vcards }) {
                     {/* <- FIXED DISPLAY */}
                     <td className="px-4 py-2 border">{card.name}</td>
                     <td className="px-4 py-2 border">{card.status}</td>
-                    <td className="px-4 py-2 border">
-                      <button onClick={() => handleEditClick(card)}>
-                        <img src={eye} />
-                      </button>
-                    </td>
+                   
                   </tr>
                 ))}
                 {vcards?.length === 0 && (
@@ -233,13 +193,7 @@ export default function OrdersDetailsView({ order, vcards }) {
         </div>
       </div>
 
-      <VkardEditModal
-        show={showModal}
-        onClose={() => setShowModal(false)}
-        data={editData}
-        setData={setEditData}
-        onSave={handleSave}
-      />
+      
     </div>
   );
 }

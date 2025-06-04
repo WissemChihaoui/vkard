@@ -27,7 +27,7 @@ export default function OrderTableRow({ order }) {
         </span>
       </td>
       <td className="p-3">{order.shipping > 0 ? 'Xpresspost' : 'Poste-lettre'}</td>
-      <td className="p-3">{order.total_price} €</td>
+      <td className="p-3">{order.total_price} $ CA</td>
 
       <td className="p-3">
         <button className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition" onClick={()=>router.push(paths.profile.viewOrder(order.id))}>

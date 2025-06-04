@@ -1,8 +1,7 @@
 import { toast } from "react-toastify";
 import { STORAGE_KEY } from "../constants";
-import fetcher, { deleter, endpoints, poster, putter } from "../utils/axios";
+import fetcher, { blobFetcher, deleter, endpoints, poster, putter } from "../utils/axios";
 import useSWR, { mutate } from "swr";
-import axios from "axios";
 import { useMemo } from "react";
 
 const swrOptions = {
@@ -18,7 +17,7 @@ export const submitOrderHandler = async (formData, order) => {
 
     const res = await poster(endpoints.orders.submit, params, {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem(STORAGE_KEY)}`,
+        Authorization: `Bearer ${localStorage.getItem(STORAGE_KEY)}`,
       },
     });
 
@@ -109,3 +108,20 @@ export const changeStatus = async (id, status) => {
     throw error;
   }
 };
+
+
+export function useGetInvoiceFile(ref) {
+  const url = endpoints.orders.invoice(ref);
+
+  const { data, isLoading } = useSWR(url, blobFetcher, swrOptions);
+
+  const memoizedValue = useMemo(
+    () => ({
+      invoice: data, // will be a Blob
+      invoiceIsLoading: isLoading,
+    }),
+    [data, isLoading]
+  );
+
+  return memoizedValue;
+}

@@ -35,5 +35,8 @@ export const paths = {
     },
     cards: "/admin/cards",
     auth: "/admin/auth",
+    cardsEdit: {
+      root: "/admin/cards-edit",
+    }
   },
 };

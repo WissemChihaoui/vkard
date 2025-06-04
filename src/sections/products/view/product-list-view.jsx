@@ -30,7 +30,7 @@ export default function ProductListView({ cards = [] }) {
                 key={card.id}
                 className={`md:flex p-0.25 rounded-[2.5rem] bg-conic-gradient bg-n-6 w-fit lg:w-full`}
               >
-                <div className="relative bg-n-8 rounded-[2.4375rem] overflow-hidden lg:p-8 p-4">
+                <div className="relative w-full bg-n-8 rounded-[2.4375rem] overflow-hidden lg:p-8 p-4">
                   <div className="absolute top-0 left-0 max-w-full">
                     <img
                       className="w-full"
@@ -50,9 +50,12 @@ export default function ProductListView({ cards = [] }) {
                       <div>
                         <h4 className="h4 mb-4">{card.title}</h4>
                         <p className="body-2 text-n-4">{card.description}</p>
-                        <Button className="mt-4" white onClick={()=>router.push(paths.products.view(card.id))}>
-                          Commander
-                        </Button>
+                        <div className="flex justify-between items-center">
+                          <span className="text-2xl ">{card.price} $ CA </span>
+                          <Button className="mt-4" white onClick={()=>router.push(paths.products.view(card.id))}>
+                            Commander
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>

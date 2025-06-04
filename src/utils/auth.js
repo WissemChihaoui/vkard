@@ -57,12 +57,12 @@ export function tokenExpired(exp) {
 
   if (timeLeft <= 0) {
     alert('Token expired!');
-    sessionStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(STORAGE_KEY);
     window.location.href = paths.auth.jwt.signIn;
   } else {
     setTimeout(() => {
       alert('Token expired!');
-      sessionStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(STORAGE_KEY);
       window.location.href = paths.auth.jwt.signIn;
     }, timeLeft * 1000); // Convert timeLeft back to milliseconds for setTimeout
   }
@@ -70,8 +70,8 @@ export function tokenExpired(exp) {
 
 // ----------------------------------------------------------------------
 
-export async function setSession(accessToken = sessionStorage.getItem(STORAGE_KEY)) {
-  sessionStorage.setItem(STORAGE_KEY, accessToken);
+export async function setSession(accessToken = localStorage.getItem(STORAGE_KEY)) {
+  localStorage.setItem(STORAGE_KEY, accessToken);
   if (accessToken) {
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   } 

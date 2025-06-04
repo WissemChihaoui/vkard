@@ -14,9 +14,8 @@ export default function CheckoutPageView() {
   const router = useRouter();
 
 
-  const { subtotal, shipping, tva, total, submitOrder, livraison, onSelectLivraison, items } =
+  const { subtotal, tva, shipping, total, submitOrder, livraison, onSelectLivraison, items } =
     useCheckoutContext();
-  console.log(items)
     useEffect(()=>{
       
       if(items && items.length === 0) {
@@ -198,19 +197,19 @@ export default function CheckoutPageView() {
                 </h4>
                 <div className="flex justify-between mb-2">
                   <span>Total HT :</span>
-                  <span>{subtotal.toFixed(2)} €</span>
+                  <span>{subtotal.toFixed(2)} $ CA</span>
                 </div>
                 <div className="flex justify-between mb-2">
-                  <span>TVA (20%) :</span>
-                  <span>{tva.toFixed(2)} €</span>
+                  <span>TVA (0.14975) :</span>
+                  <span>{tva.toFixed(2)} $ CA</span>
                 </div>
                 <div className="flex justify-between mb-2">
                   <span>Frais de livraison :</span>
-                  <span>{shipping.toFixed(2)} €</span>
+                  <span>{shipping.toFixed(2)} $ CA</span>
                 </div>
                 <div className="flex justify-between font-semibold text-lg border-t pt-4 mt-4">
                   <span>Total TTC :</span>
-                  <span>{total.toFixed(2)} €</span>
+                  <span>{total.toFixed(2)} $ CA</span>
                 </div>
               </div>
             </div>
@@ -236,7 +235,7 @@ export default function CheckoutPageView() {
                       checked={livraison === "xpress"}
                       onChange={() => onSelectLivraison("xpress")}
                     />
-                    <span>Xpresspost : 13.80 €</span>
+                    <span>Xpresspost : 13.80 $ CA</span>
                   </label>
                 </div>
               </div>

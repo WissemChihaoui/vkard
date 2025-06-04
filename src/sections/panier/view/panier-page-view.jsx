@@ -47,7 +47,7 @@ export default function PanierPageView() {
                   />
                   <div className="flex-1 w-full">
                     <h3 className="text-lg font-semibold mb-1">{item.name}</h3>
-                    <p className="text-n-4 mb-2">{item.price.toFixed(2)} € HT</p>
+                    <p className="text-n-4 mb-2">{item.price.toFixed(2)} $ CA HT</p>
 
                     <div className="flex items-center gap-3">
                       <button
@@ -67,7 +67,7 @@ export default function PanierPageView() {
                   </div>
                   <div className="text-right flex flex-col items-end gap-2">
                     <p className="font-bold text-lg">
-                      {(item.price * item.quantity).toFixed(2)} €
+                      {(item.price * item.quantity).toFixed(2)} $ CA
                     </p>
                     <button
                       onClick={() => onDeleteCart(item.id)}
@@ -85,15 +85,15 @@ export default function PanierPageView() {
               <h4 className="text-xl font-bold mb-4">Résumé de la commande</h4>
               <div className="flex justify-between mb-2">
                 <span>Total HT :</span>
-                <span>{subtotal.toFixed(2)} €</span>
+                <span>{subtotal.toFixed(2)} $ CA</span>
               </div>
               <div className="flex justify-between mb-2">
-                <span>TVA ({(tvaRate * 100).toFixed(0)}%) :</span>
-                <span>{tva.toFixed(2)} €</span>
+                <span>TVA (0.14975) :</span>
+                <span>{tva.toFixed(2)} $ CA</span>
               </div>
               <div className="flex justify-between font-semibold text-lg border-t pt-4 mt-4">
                 <span>Total TTC :</span>
-                <span>{total.toFixed(2)} €</span>
+                <span>{total.toFixed(2)} $ CA</span>
               </div>
               <Button className="mt-6 w-full" href={paths.panier.checkout}>
                 Procéder au paiement

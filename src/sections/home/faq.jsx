@@ -8,7 +8,7 @@ const faqs = [
     question: "Y a t-il un abonnement avec ma carte de visite connectée ?",
     answer: `L’abonnement est facultatif. Il est utile aux entreprises qui ont le besoin d’avoir des services supplémentaires.
 
-VKARD est une plateforme SaaS, hébergeur de vos données et l’abonnement nous permet, en temps qu’éditeur logiciel d’innover et de maintenir un haut niveau de sécurité en permanence.`,
+V-Carte est une plateforme SaaS, hébergeur de vos données et l’abonnement nous permet, en temps qu’éditeur logiciel d’innover et de maintenir un haut niveau de sécurité en permanence.`,
   },
   {
     question: "Puis-je modifier mes informations à tout moment ?",
@@ -18,7 +18,7 @@ VKARD est une plateforme SaaS, hébergeur de vos données et l’abonnement nous
   {
     question: "Est-il possible de traduire mes infos de contact ?",
     answer: `Oui, vous pouvez traduire vos informations de contact comme votre intitulé de poste, votre Bio, mais également vos liens externes.
-VKARD servira à vos prospects vos infos dans la bonne langue suivant celle de son smartphone.
+V-Carte servira à vos prospects vos infos dans la bonne langue suivant celle de son smartphone.
 Nous avons plus de 100 langues disponibles.`,
   },
 ];

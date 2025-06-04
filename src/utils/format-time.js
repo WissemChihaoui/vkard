@@ -3,6 +3,10 @@ import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 // ----------------------------------------------------------------------
+import 'dayjs/locale/fr';
+
+// ✅ Set the locale globally to French
+dayjs.locale('fr');
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);

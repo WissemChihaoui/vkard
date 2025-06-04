@@ -1,21 +1,23 @@
 import React from "react";
 import Button from "../../../components/button/Button";
-// import Loader from '../../../components/loader/Loader';
+import InvoiceDownloadButton from "../../../components/invoice-download/invoice-download";
+
 
 export default function OrderDetailsPage({ order, vcards, loading }) {
-  //   const [order, setOrder] = useState(null);
-  //   const [loading, setLoading] = useState(true);
+
   console.log(order);
 
-    if (loading) return <p>Loading</p>;
+  if (loading) return <p>Loading</p>;
   if (!order) return <p>Commande introuvable.</p>;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <h2 className="text-2xl font-semibold mb-4">
-        Détails de la commande #{order.id}
-      </h2>
-
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-semibold mb-4">
+          Détails de la commande #{order.id}
+        </h2>
+        <InvoiceDownloadButton ref={order?.ref}/>
+      </div>
       <div className=" p-6 rounded-lg shadow-md mb-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div>
@@ -26,15 +28,46 @@ export default function OrderDetailsPage({ order, vcards, loading }) {
             <strong>Statut :</strong> {order.status}
           </div>
           <div>
-            <strong>Livraison :</strong> {order.shipping || "Non spécifié"}
+            <strong>Livraison :</strong> {order.shipping || "Non spécifié"} $ CA
           </div>
           <div>
-            <strong>Total :</strong> {order.total_price} €
+            <strong>Total :</strong> {order.total_price} $ CA
           </div>
           <div>
             <strong>Référence :</strong> {order.id || "Aucune"}
           </div>
         </div>
+      </div>
+
+      <h3 className="text-xl font-medium mb-4">Les produits</h3>
+      <div className="overflow-x-auto rounded shadow mb-4">
+        {order?.order_items && order?.order_items?.length > 0 ? (
+          <table className="min-w-full text-sm text-left table-auto">
+            <thead className="bg-n-5 text-n-1">
+              <tr>
+                <th className="p-3">Nom du produit</th>
+                <th className="p-3">Prix unitaire</th>
+                <th className="p-3">Quantité</th>
+                <th className="p-3">Prix total</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {order.order_items?.map((item, index) => (
+                <tr key={index}>
+                  <td className="p-3">{item.card.title}</td>
+                  <td className="p-3">{item.card.price} $ CA</td>
+                  <td className="p-3">{item.quantity}</td>
+                  <td className="p-3">
+                    {(parseFloat(item.card.price) * item.quantity).toFixed(2)} $
+                    CA
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          ""
+        )}
       </div>
 
       <h3 className="text-xl font-medium mb-4">V-Cards associés</h3>

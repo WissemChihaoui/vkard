@@ -13,7 +13,7 @@ const Benefits = () => {
   return (
     <Section crosses id="features" className="xl:py-12 lg:py-8">
       <div className="container relative z-2">
-      <Heading tag="Pourquoi choisir VKARD, une carte NFC en bois pour équiper son entreprise ?" title="Pourquoi Nous?" />
+      <Heading tag="Pourquoi choisir V-Carte, une carte NFC en bois pour équiper son entreprise ?" title="Pourquoi Nous?" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-10">
           {whyUsVars.map((item) => (
             <div

@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import MainLayout from "../../layouts/main-layout";
 import AccountLayout from "../../layouts/account-layout";
 import { AuthGuard, GuestGuard } from "../../auth/guard";
+import Loader from "../../components/loader/loader";
 // import Loader from "../../components/loader/loader";
 
 const ViewProduct = lazy(() => import("../../pages/main/products/view"));
@@ -20,7 +21,7 @@ const ProfileCards = lazy(() => import("../../pages/profile/cards"));
 
 const layoutContent = (
   <AccountLayout>
-    <Suspense fallback={<p>Loading ...</p>}>
+    <Suspense fallback={<Loader />}>
     <Outlet />
     </Suspense>
   </AccountLayout>
@@ -30,7 +31,7 @@ export const mainRoutes = [
   {
     element: (
       <MainLayout>
-        <Suspense fallback={<p>Loading</p>}>
+        <Suspense fallback={<p><Loader /></p>}>
           <Outlet />
         </Suspense>
       </MainLayout>

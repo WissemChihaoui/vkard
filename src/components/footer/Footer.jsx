@@ -15,7 +15,7 @@ const Footer = () => {
           {/* Contact Info */}
           <div>
             <h4 className="font-semibold text-white mb-3">INFORMATIONS DE CONTACT</h4>
-            <p>Email : contact@speedigi.ca</p>
+            <p>Email : speedigi.commercial@speedigi.ca</p>
             <p>Téléphone : +1 (438) 836-9520</p>
             <p>Adresse : 726 avenue du brabant app1 Québec</p>
           </div>

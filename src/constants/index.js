@@ -57,7 +57,7 @@ export const navigation = [
   },
   {
     id: "0",
-    title: "Modèles de VKARD",
+    title: "Modèles de V-Carte",
     url: paths.products.list,
   },
   {
@@ -68,7 +68,7 @@ export const navigation = [
   
   {
     id: "6",
-    title: "Sign in",
+    title: "Compte",
     url: paths.auth.root,
     onlyMobile: true,
   },
@@ -256,7 +256,7 @@ export const benefits = [
   {
     id: "1",
     title: "RGPD & Confidendialité",
-    text: "VKARD est auditée et totalement conforme au RGPD pour une protection maximale de vos données personnelles.",
+    text: "Nous garantissons la confidentialité de vos données grâce à des protocoles de sécurité avancés et une gestion responsable des informations.",
     backgroundUrl: benefitCard2,
     iconUrl: checkIcon,
     imageUrl: benefitImage1,
@@ -272,8 +272,8 @@ export const benefits = [
   },
   {
     id: "3",
-    title: "Fabriqué en France",
-    text: "Nos produits sont conçus et fabriqués en France. Cela nous permet de garantir une qualité supérieure et des délais de fabrication réduits.",
+    title: "Fabriqué en Canada",
+    text: "Nous sommes fiers d’offrir un produit de Québec, fait avec passion et un engagement durable envers notre région.",
     backgroundUrl: benefitCard4,
     iconUrl: homeIcon,
     imageUrl: benefitImage1,
@@ -296,7 +296,7 @@ export const whyUsVars = [
   },
   {
     id: "2",
-    text: "Récupérez les coordonnées de vos prospects via votre VKARD",
+    text: "Récupérez les coordonnées de vos prospects via votre V-Carte",
     iconUrl: cart,
     backgroundUrl: benefitCard1,
   },

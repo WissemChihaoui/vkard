@@ -41,7 +41,7 @@ export default function ProductHeader({ card = {}}) {
             </h2>
             <h3 className="h3 font-bold mb-12 relative inline-block">
               <span className="relative inline-block">
-                {card.price} € HT{" "}
+                {card.price} $ CA HT{" "}
                 <img
                   src={curve}
                   className="absolute top-full left-0 w-full xl:-mt-2"

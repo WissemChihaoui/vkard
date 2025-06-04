@@ -28,15 +28,7 @@ export function GuestGuard({ children }) {
     }
 
     if (authenticated) {
-      if (user?.role === 'admin') {
-        router.replace(paths.admin.root);
-      } else if (user?.role === 'client') {
-        router.replace(paths.profile.root);
-      } else {
-        // Fallback
-        router.replace('/');
-      }
-      // router.replace(returnTo);
+      router.replace(returnTo);
       return;
     }
 

@@ -20,13 +20,13 @@ const columns = [
   { label: "Id #", key: "id", searchable: true, orderable: true },
   {
     label: "Gérer par",
-    key: "client",
+    key: "admin",
     searchable: true,
     orderable: true,
     filterable: true,
   },
   { label: "Commande", key: "commande", orderable: true },
-  { label: "Statut", key: "status", orderable: true, filterable: true },
+  { label: "Statut", key: "status", orderable: true},
   { label: "Nom", key: "name", orderable: true },
   { label: "Actions", key: "actions" },
 ];

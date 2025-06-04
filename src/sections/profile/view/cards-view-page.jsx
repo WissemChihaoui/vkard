@@ -55,7 +55,7 @@ export default function CardsViewPage() {
     <>
       <div className="mx-auto space-y-10">
         <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
-          <h2 className="text-xl font-semibold">Administrer mes VKARDS</h2>
+          <h2 className="text-xl font-semibold">Administrer mes V-CarteS</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

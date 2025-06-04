@@ -14,7 +14,7 @@ import { useAuthContext } from '../hooks';
 export function AuthGuard({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
   console.log(pathname)
 
@@ -25,22 +25,23 @@ export function AuthGuard({ children }) {
 
   const [isChecking, setIsChecking] = useState(true);
 
-  // const createQueryString = useCallback(
-  //   (name, value) => {
-  //     const params = new URLSearchParams(searchParams.toString());
-  //     params.set(name, value);
-  //     return params.toString();
-  //   },
-  //   [searchParams]
-  // );
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   const checkPermissions = async () => {
     if (loading) return;
 
     // 🚫 Not authenticated
     if (!authenticated) {
-      // const href = `${signInPath}?${createQueryString('returnTo', pathname)}`;
-      router.replace(paths.root);
+      const signInPath = paths.auth.root
+      const href = `${signInPath}?${createQueryString('returnTo', pathname)}`;
+      router.replace(href);
       return;
     }
     setIsChecking(false);

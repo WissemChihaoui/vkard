@@ -1,5 +1,7 @@
 import React from "react";
 import { eye, link, trash } from "../../../assets/admin";
+import { Link } from "react-router-dom";
+import { paths } from "../../../routes/paths";
 
 export default function CardsListRow({
   order,
@@ -19,7 +21,7 @@ export default function CardsListRow({
       <td className="px-4 py-3">
         {order.user.first_name} {order.user.last_name}
       </td>
-      <td className="px-4 py-3">{order.order_id}</td>
+      <td className="px-4 py-3"><Link to={paths.admin.orders.view(order?.order_item?.order_id)}>{order?.order_item?.order_id}</Link></td>
       <td className="px-4 py-3">
         {/* Status Switch */}
         <label className="inline-flex items-center cursor-pointer relative">

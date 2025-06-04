@@ -12,7 +12,7 @@ export default function AccountLayout({ children }) {
     { label: 'Tableau de bord', link: paths.profile.root },
     { label: 'Commandes', link: paths.profile.orders },
     { label: 'Détails du compte', link: paths.profile.editAccount },
-    { label: 'Administrer mes VKARDs', link: paths.profile.cards },
+    { label: 'Administrer mes V-Cartes', link: paths.profile.cards },
     { label: 'Se déconnecter', link: paths.root, action: ()=>handleLogout() },
   ];
   const { checkUserSession } = useAuthContext();

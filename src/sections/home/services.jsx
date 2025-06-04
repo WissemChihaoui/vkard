@@ -30,7 +30,7 @@ export default function Services() {
               <div className="relative z-1">
                 <div className="flex flex-col-reverse lg:flex-row">
                   <div>
-                    <h4 className="h4 mb-4">Carte nfc</h4>
+                    <h4 className="h4 mb-4">Carte NFC</h4>
                     <p className="body-1 text-n-3 font-bold">
                       Modernisez votre manière de faire des rencontres
                       professionnelles grâce à une carte NFC intelligente et
@@ -56,9 +56,14 @@ export default function Services() {
                     <p className="body-2 text-n-3 font-bold">
                       Adoptez dès aujourd’hui la carte de visite du futur.
                     </p>
-                    <Button className="mt-4" white href={paths.products.list}>
+                    <span className="text-sm text-n-4">Abonnement Gratuit Pour deux 2 ans (*Prix mensuel 4.99 CA)</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-4xl font-bold">70 $ CA</span>
+<Button className="mt-4" white href={paths.products.list}>
                       Commandez la vôtre
                     </Button>
+                    </div>
+                    
                   </div>
                   <img
                     src={service0}
@@ -151,7 +156,7 @@ export default function Services() {
                     alt=""
                   />
                   <div>
-                    <h4 className="h4 mb-4">Optimisation seo</h4>
+                    <h4 className="h4 mb-4">Optimisation SEO</h4>
                     <p className="body-2 text-n-4">
                       Boostez la visibilité de votre site web grâce à une
                       stratégie SEO sur mesure. Analyse technique, optimisation

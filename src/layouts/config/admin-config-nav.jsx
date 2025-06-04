@@ -1,4 +1,4 @@
-import { chartPie, cube, identification, userGroup } from "../../assets/admin";
+import { chartPie, cube, identification, userGroup, shoppingCart } from "../../assets/admin";
 import { paths } from "../../routes/paths";
 
 export const navData = [
@@ -9,6 +9,7 @@ export const navData = [
             { title: 'Commandes', path: paths.admin.orders.root, icon: <img src={cube} />},
             { title: 'Clients', path: paths.admin.clients.root, icon: <img src={userGroup} />},
             { title: 'V-Cards', path: paths.admin.cards, icon: <img src={identification} />},
+            { title: 'Cards', path: paths.admin.cardsEdit.root, icon: <img src={shoppingCart} />},
         ]
     }
 ]

@@ -42,36 +42,41 @@ export function CheckoutProvider({ children }) {
 // ----------------------------------------------------------------------
 
 function Container({ children }) {
-  // const router = useRouter();
-
   const searchParams = useSearchParams();
-
   const activeStep = Number(searchParams.get("step"));
 
   const { state, setState, setField, canReset } = useLocalStorage(
     STORAGE_KEY,
     initialState
   );
-  const tvaRate = 0.2;
+
+  const TVA_RATE = 0.14975;
+
+  // // Derived values
+  // const subtotal = state.total / (1 + TVA_RATE);
+  // const tva = state.total - subtotal;
 
   const updateTotalField = useCallback(() => {
-    const totalItems = state.items.reduce(
-      (total, item) => total + item.quantity,
-      0
-    );
-    const subtotal = state.items.reduce(
-      (total, item) => total + item.quantity * item.price,
-      0
-    );
-    const tva = subtotal * tvaRate;
-    const total = subtotal + tva - state.discount + state.shipping;
+  const totalItems = state.items.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
-    setField("subtotal", subtotal);
-    setField("totalItems", totalItems);
-    setField("tva", tva); // ← Add this line
-    setField("total", total); // ← Update total to include TVA
-  }, [setField, state.discount, state.items, state.shipping]);
-  
+  const HT = state.items.reduce(
+    (total, item) => total + item.quantity * item.price,
+    0
+  );
+
+  const TVA = HT * TVA_RATE;
+
+  const TTC = HT * (1 + TVA_RATE) + state.shipping;
+
+  setField("totalItems", totalItems);
+  setField("total", TTC); // Store TTC
+  setField("subtotal", HT); // Optional: if you want to persist
+  setField("tva", TVA);     // Optional: if you want to persist
+}, [setField, state.items, state.shipping]);
+
   useEffect(() => {
     const restoredValue = getStorage(STORAGE_KEY);
     if (restoredValue) {
@@ -79,60 +84,56 @@ function Container({ children }) {
     }
   }, [updateTotalField]);
 
+  const onAddToCart = useCallback(
+    (newItem) => {
+      try {
+        if (!newItem || !newItem.id) {
+          toast.error("Échec de l'ajout de l'article.");
+          return;
+        }
 
-const onAddToCart = useCallback(
-  (newItem) => {
-    try {
-      if (!newItem || !newItem.id) {
-        toast.error("Échec de l'ajout de l'article.");
-        return;
+        const updatedItems = [...state.items];
+
+        if (updatedItems.some((item) => item.id === newItem.id)) {
+          toast.warning("Cet article est déjà dans le panier.");
+          return;
+        }
+
+        updatedItems.push(newItem);
+        setField("items", updatedItems);
+        toast.success("Article ajouté au panier !");
+      } catch (error) {
+        console.error(error);
+        toast.error("Une erreur s'est produite lors de l'ajout.");
       }
-
-      const updatedItems = [...state.items];
-
-      if (updatedItems.some((item) => item.id === newItem.id)) {
-        toast.warning("Cet article est déjà dans le panier.");
-        return;
-      }
-
-      updatedItems.push(newItem);
-      setField("items", updatedItems);
-      toast.success("Article ajouté au panier !");
-    } catch (error) {
-      console.error(error);
-      toast.error("Une erreur s'est produite lors de l'ajout.");
-    }
-  },
-  [setField, state.items]
-);
-
+    },
+    [setField, state.items]
+  );
 
   const onDeleteCart = useCallback(
     (itemId) => {
       const updatedItems = state.items.filter((item) => item.id !== itemId);
-
       setField("items", updatedItems);
     },
     [setField, state.items]
   );
 
-  const onSelectLivraison = useCallback((method) => {
-  let shipping = 0;
-  if (method === "xpress") shipping = 13.8;
+  const onSelectLivraison = useCallback(
+    (method) => {
+      let shipping = 0;
+      if (method === "xpress") shipping = 13.8;
 
-  setField("livraison", method);
-  setField("shipping", shipping);
-}, [setField]);
+      setField("livraison", method);
+      setField("shipping", shipping);
+    },
+    [setField]
+  );
 
   const onIncreaseQuantity = useCallback(
     (itemId) => {
-      const updatedItems = state.items.map((item) => {
-        if (item.id === itemId) {
-          return { ...item, quantity: item.quantity + 1 };
-        }
-        return item;
-      });
-
+      const updatedItems = state.items.map((item) =>
+        item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
+      );
       setField("items", updatedItems);
     },
     [setField, state.items]
@@ -140,13 +141,11 @@ const onAddToCart = useCallback(
 
   const onDecreaseQuantity = useCallback(
     (itemId) => {
-      const updatedItems = state.items.map((item) => {
-        if (item.id === itemId && item.quantity > 1) {
-          return { ...item, quantity: item.quantity - 1 };
-        }
-        return item;
-      });
-
+      const updatedItems = state.items.map((item) =>
+        item.id === itemId && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      );
       setField("items", updatedItems);
     },
     [setField, state.items]
@@ -173,61 +172,60 @@ const onAddToCart = useCallback(
     [setField]
   );
 
-  const submitOrder = useCallback(async (formData) => {
-    try {
-      const res = await submitOrderHandler(formData, state );
-       if (res?.stripe_url) {
-            setState([])
-            window.location.href = res.stripe_url;
-          } else {
-            toast.error("Erreur lors de la création de la session Stripe.");
-          }
-
-    }catch (error) {
-      console.error(error);
-    }
-  }, [state, setState])
-
-
-
+  const submitOrder = useCallback(
+    async (formData) => {
+      try {
+        const res = await submitOrderHandler(formData, state);
+        if (res?.stripe_url) {
+          setState([]); // clear local storage
+          window.location.href = res.stripe_url;
+        } else {
+          toast.error("Erreur lors de la création de la session Stripe.");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [state, setState]
+  );
+console.log(state)
   const memoizedValue = useMemo(
     () => ({
       ...state,
+      // subtotal, // dynamically computed
+      // tva,      // dynamically computed
       canReset,
       onUpdate: setState,
       onUpdateField: setField,
       //
-      //
       onAddToCart,
       onDeleteCart,
-      //
       onIncreaseQuantity,
       onDecreaseQuantity,
-      //
       onCreateBilling,
       onApplyDiscount,
       onApplyShipping,
-      //
-      activeStep,
-
+      onSelectLivraison,
       submitOrder,
-onSelectLivraison,
+      activeStep,
     }),
     [
       state,
+      // subtotal,
+      // tva,
       canReset,
       setField,
       setState,
       activeStep,
       onAddToCart,
       onDeleteCart,
+      onIncreaseQuantity,
+      onDecreaseQuantity,
+      onCreateBilling,
       onApplyDiscount,
       onApplyShipping,
-      onCreateBilling,
-      onDecreaseQuantity,
-      onIncreaseQuantity,
+      onSelectLivraison,
       submitOrder,
-      onSelectLivraison
     ]
   );
 
@@ -237,5 +235,6 @@ onSelectLivraison,
     </CheckoutContext.Provider>
   );
 }
+
 
 // ----------------------------------------------------------------------

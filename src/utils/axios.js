@@ -108,6 +108,7 @@ export const endpoints = {
     get: (id) => `/api/users/${id}`,
     delete: (id) => `/api/users/${id}`,
     sendMessage: `/api/users/send-message`,
+    create: '/api/users'
   },
   cards: {
     profile: (id) => `/api/profile/${id}`,

@@ -2,10 +2,6 @@ import { useState, useEffect } from 'react';
 
 import { useRouter, useSearchParams } from '../../routes/hooks';
 
-import { CONFIG } from '../../config-global';
-
-// import { SplashScreen } from '../../components/loading-screen';
-
 import { useAuthContext } from '../hooks';
 import { paths } from '../../routes/paths';
 
@@ -16,7 +12,7 @@ export function GuestGuard({ children }) {
 
   const searchParams = useSearchParams();
 
-  const { loading, authenticated, user } = useAuthContext();
+  const { loading, authenticated } = useAuthContext();
 
   const [isChecking, setIsChecking] = useState(true);
 

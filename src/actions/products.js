@@ -1,5 +1,5 @@
 import useSWR, { mutate } from "swr";
-import axios, { deleter, endpoints, fetcher, poster } from "../utils/axios";
+import axios, { deleter, endpoints, fetcher } from "../utils/axios";
 import { useMemo } from "react";
 
 const swrOptions = {

@@ -3,101 +3,7 @@ import DataTable from "../../../../components/datatables/data-table";
 import ClientsListRow from "../clients-list-row";
 import { deleteUser, useGetUsers } from "../../../../actions/users";
 import { toast } from "react-toastify";
-// import DataTable from '../../components/datatable/DataTable'
-// import { FaEye, FaTrash } from 'react-icons/fa'
-
-const clients = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "john@example.com",
-    phone: "+216 12 345 678",
-    entreprise: "Acme Corp",
-    address: "123 Rue de Tunis",
-    commands: 5,
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    phone: "+216 98 765 432",
-    entreprise: "Globex",
-    address: "456 Avenue Bourguiba",
-    commands: 3,
-  },
-  {
-    id: 3,
-    name: "John Doe",
-    email: "john@example.com",
-    phone: "+216 12 345 678",
-    entreprise: "Acme Corp",
-    address: "123 Rue de Tunis",
-    commands: 5,
-  },
-  {
-    id: 4,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    phone: "+216 98 765 432",
-    entreprise: "Globex",
-    address: "456 Avenue Bourguiba",
-    commands: 3,
-  },
-  {
-    id: 5,
-    name: "John Doe",
-    email: "john@example.com",
-    phone: "+216 12 345 678",
-    entreprise: "Acme Corp",
-    address: "123 Rue de Tunis",
-    commands: 5,
-  },
-  {
-    id: 6,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    phone: "+216 98 765 432",
-    entreprise: "Globex",
-    address: "456 Avenue Bourguiba",
-    commands: 3,
-  },
-  {
-    id: 7,
-    name: "John Doe",
-    email: "john@example.com",
-    phone: "+216 12 345 678",
-    entreprise: "Acme Corp",
-    address: "123 Rue de Tunis",
-    commands: 5,
-  },
-  {
-    id: 8,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    phone: "+216 98 765 432",
-    entreprise: "Globex",
-    address: "456 Avenue Bourguiba",
-    commands: 3,
-  },
-  {
-    id: 9,
-    name: "John Doe",
-    email: "john@example.com",
-    phone: "+216 12 345 678",
-    entreprise: "Acme Corp",
-    address: "123 Rue de Tunis",
-    commands: 5,
-  },
-  {
-    id: 10,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    phone: "+216 98 765 432",
-    entreprise: "Globex",
-    address: "456 Avenue Bourguiba",
-    commands: 3,
-  },
-];
+import ClientAddModal from "../clients-add-modal";
 
 const columns = [
   { label: "Client", key: "name", searchable: true, orderable: true },
@@ -112,6 +18,7 @@ export default function ClientsListView() {
   const { usersData } = useGetUsers();
   console.log(usersData);
   const [tableData, setTableData] = useState([]);
+  const [open, setOpen] = useState(false)
 
   useEffect(()=> {
     if(usersData) setTableData(usersData)
@@ -134,6 +41,7 @@ export default function ClientsListView() {
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold text-n-1">Liste des clients</h2>
+        <button onClick={() => setOpen(true)} className="bg-n-5 hover:bg-n-4 text-white text-sm font-medium px-4 py-2 rounded shadow">Ajouter un client</button>
       </div>
       <DataTable
         columns={columns}
@@ -141,6 +49,10 @@ export default function ClientsListView() {
         renderRow={(client) => (
           <ClientsListRow client={client} deleteRow={deleteRow} key={client.id}/>
         )}
+      />
+      <ClientAddModal 
+        open={open}
+        onClose={() => setOpen(false)}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 import useSWR, { mutate } from "swr";
-import axios, { deleter, endpoints, fetcher, putter } from "../utils/axios";
+import axios, { deleter, endpoints, fetcher, poster, putter } from "../utils/axios";
 import { useMemo } from "react";
 
 const swrOptions = {
@@ -102,3 +102,21 @@ export const sendMessage = async (data) => {
     throw error;
   }
 };
+
+export const createUser = async (data) => {
+  try {
+    const url = endpoints.users.create;
+
+    const params = {...data};
+
+    const res = await poster(url, params)
+
+    mutate(endpoints.users.all)
+
+    return res;
+
+  } catch (error) {
+    console.error("❌ Erreur lors de la création d'un client:", error);
+    throw error;
+  }
+}

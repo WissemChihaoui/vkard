@@ -125,3 +125,19 @@ export function useGetInvoiceFile(ref) {
 
   return memoizedValue;
 }
+
+export const useCreateByAdmin = async (data) => {
+  try {
+    const url = endpoints.orders.createAdmine
+
+    const res = await poster(url, data)
+
+    mutate(endpoints.orders.all)
+
+    return res
+  } catch (error) {
+    console.error("erreur lors du création cette commande", error);
+
+    throw error
+  }
+}

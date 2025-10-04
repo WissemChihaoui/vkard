@@ -100,6 +100,7 @@ export const endpoints = {
     delete: (id) => `/api/order/${id}`,
     changeStatus: (id) => `/api/order/change-status/${id}`,
     invoice: (ref) => `/api/invoice/${ref}`,
+    createAdmine: '/api/order/create-from-admin'
   },
   users: {
     updateMe: "/api/update-me",

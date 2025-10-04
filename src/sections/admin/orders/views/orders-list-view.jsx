@@ -5,6 +5,7 @@ import OrdersListRow from "../orders-list-row";
 import { deleteOrder, useGetAllOrders } from "../../../../actions/orders";
 import { toast } from "react-toastify";
 import { ORDER_STATUS } from "../../../../constants";
+import OrderCreateModal from "../orders-create-modal";
 
 const columns = [
   {
@@ -29,6 +30,7 @@ const columns = [
 export default function OrdersListView({ orders }) {
 
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   const [orderToDelete, setOrderToDelete] = useState(null);
   const [tableData, setTableData] = useState([]);
 
@@ -71,6 +73,7 @@ export default function OrdersListView({ orders }) {
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold text-n-1">Liste des commandes</h2>
+        <button onClick={()=>setOpen(true)} className="bg-n-5 hover:bg-n-4 text-white text-sm font-medium px-4 py-2 rounded shadow">Ajouter une commande</button>
       </div>
 
       <DataTable
@@ -84,6 +87,8 @@ export default function OrdersListView({ orders }) {
           />
         )}
       />
+
+      <OrderCreateModal open={open} onClose={()=> setOpen(false)}/>
 
       <ConfirmDeleteModal
         open={confirmOpen}
